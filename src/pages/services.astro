@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SOCIAL_LINKS } from "../consts";
+
+const services = [
+    {
+        title: "AI consulting",
+        body: "Working with teams and individuals on practical applications of modern AI — from scoping what's feasible to hands-on implementation. Short engagements and longer partnerships both fine.",
+    },
+    {
+        title: "Private teaching",
+        body: "One-on-one or small-group sessions for people wanting to go deeper on AI tools, build their own workflows, or learn to ship with modern stacks. Tailored to your goals.",
+    },
+];
+---
+
+<BaseLayout title="Services">
+    <section class="py-16">
+        <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
+            Services
+        </h1>
+        <p class="mt-4 text-muted leading-relaxed">
+            Ways I work with people. If something here fits,
+            <a href="/contact">get in touch</a>.
+        </p>
+
+        <ul class="mt-12 space-y-10">
+            {
+                services.map((s) => (
+                    <li>
+                        <h2 class="text-xl font-semibold tracking-tight">
+                            {s.title}
+                        </h2>
+                        <p class="mt-2 text-muted leading-relaxed">
+                            {s.body}
+                        </p>
+                    </li>
+                ))
+            }
+        </ul>
+
+        <div class="mt-16 pt-8 border-t border-border-subtle">
+            <a
+                href={`mailto:${SOCIAL_LINKS.email}`}
+                class="inline-block font-medium"
+            >
+                Start a conversation →
+            </a>
+        </div>
+    </section>
+</BaseLayout>

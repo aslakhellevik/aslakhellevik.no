@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const grouped = new Map<number, typeof posts>();
+for (const post of posts) {
+    const year = post.data.date.getFullYear();
+    if (!grouped.has(year)) grouped.set(year, []);
+    grouped.get(year)!.push(post);
+}
+
+const years = [...grouped.keys()].sort((a, b) => b - a);
+
+const monthDay = new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "short",
+});
+---
+
+<BaseLayout title="Writing">
+    <section class="py-16">
+        <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
+            Writing
+        </h1>
+        <p class="mt-4 text-muted">
+            Notes on AI, building, teaching, and whatever I'm thinking about.
+        </p>
+
+        {
+            posts.length === 0 ? (
+                <p class="mt-12 text-muted italic">
+                    No posts yet.
+                </p>
+            ) : (
+                <div class="mt-14 space-y-14">
+                    {years.map((year) => (
+                        <div>
+                            <h2 class="text-sm font-medium uppercase tracking-widest text-muted mb-5">
+                                {year}
+                            </h2>
+                            <ul class="space-y-3">
+                                {grouped.get(year)!.map((post) => (
+                                    <li class="flex items-baseline justify-between gap-4">
+                                        <a
+                                            href={`/blog/${post.id}`}
+                                            class="text-fg no-underline hover:text-accent"
+                                        >
+                                            {post.data.title}
+                                        </a>
+                                        <time
+                                            datetime={post.data.date.toISOString()}
+                                            class="shrink-0 text-sm text-muted tabular-nums"
+                                        >
+                                            {monthDay.format(post.data.date)}
+                                        </time>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+            )
+        }
+    </section>
+</BaseLayout>

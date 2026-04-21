@@ -1,13 +1,67 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+    .slice(0, 3);
+
+const dateFmt = new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+});
 ---
 
-<BaseLayout title="Aslak Hellevik">
-	<main class="mx-auto max-w-2xl px-6 py-16">
-		<h1 class="text-4xl font-bold">Hello, world.</h1>
-		<p class="mt-4 text-gray-600">
-			Tailwind is working if this paragraph is gray and the heading is big
-			and bold.
-		</p>
-	</main>
+<BaseLayout>
+    <section class="py-16 sm:py-24">
+        <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
+            Hei — I'm Aslak.
+        </h1>
+        <div class="mt-6 space-y-4 text-muted leading-relaxed">
+            <p>
+                I work at the intersection of AI and practical tools —
+                consulting with teams, teaching privately, and building small
+                things that are useful.
+            </p>
+            <p>
+                This site collects what I'm working on, thinking about, and
+                writing. If any of that sounds relevant,
+                <a href="/contact">say hello</a>.
+            </p>
+        </div>
+    </section>
+
+    {
+        posts.length > 0 && (
+            <section class="py-10 border-t border-border-subtle">
+                <div class="flex items-baseline justify-between mb-6">
+                    <h2 class="text-sm font-medium uppercase tracking-widest text-muted">
+                        Recent writing
+                    </h2>
+                    <a href="/blog" class="text-sm no-underline hover:underline">
+                        All posts →
+                    </a>
+                </div>
+                <ul class="space-y-3">
+                    {posts.map((post) => (
+                        <li class="flex items-baseline justify-between gap-4">
+                            <a
+                                href={`/blog/${post.id}`}
+                                class="text-fg no-underline hover:text-accent"
+                            >
+                                {post.data.title}
+                            </a>
+                            <time
+                                datetime={post.data.date.toISOString()}
+                                class="shrink-0 text-sm text-muted tabular-nums"
+                            >
+                                {dateFmt.format(post.data.date)}
+                            </time>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        )
+    }
 </BaseLayout>

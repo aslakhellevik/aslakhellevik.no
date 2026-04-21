@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SOCIAL_LINKS } from "../consts";
+---
+
+<BaseLayout title="Contact">
+    <section class="py-16">
+        <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
+            Contact
+        </h1>
+        <p class="mt-6 text-muted leading-relaxed">
+            The best way to reach me is email. I read everything and reply to
+            most things within a few days.
+        </p>
+
+        <div class="mt-10">
+            <a
+                href={`mailto:${SOCIAL_LINKS.email}`}
+                class="text-xl font-medium"
+            >
+                {SOCIAL_LINKS.email}
+            </a>
+        </div>
+
+        <ul class="mt-10 space-y-2 text-muted">
+            <li>
+                <a href={SOCIAL_LINKS.github} rel="me">GitHub</a> — code and
+                side projects.
+            </li>
+            <li>
+                <a href={SOCIAL_LINKS.linkedin} rel="me">LinkedIn</a> — more
+                formal stuff.
+            </li>
+        </ul>
+    </section>
+</BaseLayout>
