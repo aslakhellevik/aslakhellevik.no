@@ -20,6 +20,7 @@ const isActive = (href: string) =>
                 NAV_LINKS.map((link) => (
                     <a
                         href={link.href}
+                        aria-current={isActive(link.href) ? "page" : undefined}
                         class:list={[
                             "no-underline transition-colors",
                             isActive(link.href)

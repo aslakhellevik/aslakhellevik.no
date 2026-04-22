@@ -13,7 +13,8 @@ export async function getStaticPaths() {
 type Props = { post: CollectionEntry<"blog"> };
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, remarkPluginFrontmatter } = await render(post);
+const readingMinutes: number | undefined = remarkPluginFrontmatter.readingTime;
 
 const dateFmt = new Intl.DateTimeFormat("en-GB", {
     day: "numeric",
@@ -41,6 +42,12 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
                 <time datetime={post.data.date.toISOString()}>
                     {dateFmt.format(post.data.date)}
                 </time>
+                {readingMinutes && (
+                    <>
+                        <span>·</span>
+                        <span>{readingMinutes} min read</span>
+                    </>
+                )}
                 {
                     post.data.tags && post.data.tags.length > 0 && (
                         <span>·</span>

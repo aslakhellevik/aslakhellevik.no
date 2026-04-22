@@ -1,24 +1,116 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { WORK, EDUCATION } from "../consts";
+
+const projects = (
+    await getCollection("projects", ({ data }) => !data.draft)
+).sort((a, b) => b.data.year.localeCompare(a.data.year));
 ---
 
-<BaseLayout title="About">
-    <section class="py-16">
-        <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">About</h1>
-        <div class="mt-8 space-y-5 text-fg leading-relaxed">
-            <p>
-                A longer bio goes here. Who you are, where you're based, what
-                you've worked on, what you care about.
-            </p>
-            <p>
-                A second paragraph can cover your background in more detail —
-                education, past roles, the path that led you to AI consulting
-                and teaching.
-            </p>
-            <p>
-                A third paragraph for the personal side: interests outside
-                work, reading, etc.
-            </p>
+<BaseLayout title="About" wide>
+    <section class="py-16 grid sm:grid-cols-[200px_1fr] gap-8 sm:gap-10 items-start">
+        <img
+            src="/portrait.jpg"
+            alt="Aslak Hellevik"
+            width="200"
+            height="240"
+            class="w-40 sm:w-50 rounded-md bg-surface object-cover aspect-5/6"
+        />
+        <div>
+            <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
+                About
+            </h1>
+            <div class="mt-6 space-y-4 leading-relaxed">
+                <p>
+                    I'm a statistics master's student at the University of
+                    Oslo, currently working in the Labour Market and Taxation
+                    Research group at Statistics Norway. My day-to-day is
+                    microsimulation modelling — estimating how households
+                    respond to changes in childcare and tax policy.
+                </p>
+                <p>
+                    Before that I studied mathematics and informatics in UiO's
+                    Honours Programme, and have worked across applied AI
+                    research (Norsk Regnesentral, Simula's Bio AI project),
+                    private tutoring, and a handful of board roles in Oslo.
+                </p>
+                <p>
+                    Outside of statistics I still read and write philosophy —
+                    it was my first subject, and I enter the occasional
+                    olympiad. I also play squash, and currently chair the
+                    university club.
+                </p>
+            </div>
         </div>
+    </section>
+
+    <section class="py-12 border-t border-border-subtle">
+        <h2 class="text-sm font-medium uppercase tracking-widest text-muted mb-6">
+            Work
+        </h2>
+        <ul class="divide-y divide-border-subtle">
+            {
+                WORK.map((w) => (
+                    <li class="py-4 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                        <span class="font-medium">
+                            {w.url ? (
+                                <a href={w.url} class="no-underline hover:text-accent">
+                                    {w.company}
+                                </a>
+                            ) : (
+                                w.company
+                            )}
+                        </span>
+                        <span class="text-sm text-muted">
+                            {w.role} · {w.period}
+                        </span>
+                    </li>
+                ))
+            }
+        </ul>
+    </section>
+
+    {
+        projects.length > 0 && (
+            <section class="py-12 border-t border-border-subtle">
+                <h2 class="text-sm font-medium uppercase tracking-widest text-muted mb-6">
+                    Projects
+                </h2>
+                <ul class="divide-y divide-border-subtle">
+                    {projects.map((p) => (
+                        <li class="py-4 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                            <a
+                                href={`/projects/${p.id}`}
+                                class="font-medium text-fg no-underline hover:text-accent"
+                            >
+                                {p.data.title}
+                            </a>
+                            <span class="text-sm text-muted">
+                                {p.data.description} · {p.data.year}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        )
+    }
+
+    <section class="py-12 border-t border-border-subtle">
+        <h2 class="text-sm font-medium uppercase tracking-widest text-muted mb-6">
+            Education
+        </h2>
+        <ul class="divide-y divide-border-subtle">
+            {
+                EDUCATION.map((e) => (
+                    <li class="py-4 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                        <span class="font-medium">{e.institution}</span>
+                        <span class="text-sm text-muted">
+                            {e.degree} · {e.period}
+                        </span>
+                    </li>
+                ))
+            }
+        </ul>
     </section>
 </BaseLayout>

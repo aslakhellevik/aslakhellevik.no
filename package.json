@@ -13,8 +13,19 @@
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.2.3",
     "astro": "^6.1.8",
+    "katex": "^0.16.45",
+    "mdast-util-to-string": "^4.0.0",
+    "reading-time": "^1.5.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
+    "satori": "^0.26.0",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.2.3"
+  },
+  "devDependencies": {
+    "@fontsource/inter": "^5.2.8"
   }
 }

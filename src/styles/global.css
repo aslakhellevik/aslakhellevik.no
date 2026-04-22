@@ -1,5 +1,6 @@
 @import url("https://fonts.bunny.net/css?family=inter:400,500,600,700|newsreader:400,400i,600,600i&display=swap");
 @import "tailwindcss";
+@import "katex/dist/katex.min.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -16,6 +17,7 @@
     --color-muted: var(--muted);
     --color-subtle: var(--subtle);
     --color-accent: var(--accent);
+    --color-surface: var(--surface);
     --color-border-subtle: var(--border-subtle);
 }
 
@@ -25,6 +27,7 @@
     --muted: #57534e;
     --subtle: #78716c;
     --accent: #b45309;
+    --surface: #f5f5f4;
     --border-subtle: #e7e5e4;
     color-scheme: light;
 }
@@ -35,6 +38,7 @@
     --muted: #a8a29e;
     --subtle: #78716c;
     --accent: #fbbf24;
+    --surface: #1c1917;
     --border-subtle: #292524;
     color-scheme: dark;
 }
@@ -131,16 +135,37 @@ a:hover {
 .article pre {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 0.92em;
-    background-color: var(--border-subtle);
+    background-color: var(--surface);
     padding: 1em 1.25em;
     border-radius: 6px;
     overflow-x: auto;
     line-height: 1.55;
+    border: 1px solid var(--border-subtle);
 }
 
 .article pre code {
     background: transparent;
     padding: 0;
+}
+
+/* Shiki dual themes — swap on .dark */
+.article .astro-code,
+.article .astro-code span {
+    color: var(--shiki-light) !important;
+    background-color: var(--shiki-light-bg) !important;
+}
+
+.dark .article .astro-code,
+.dark .article .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+}
+
+/* KaTeX block math — keep horizontal scroll instead of overflow */
+.article .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.25em 0;
 }
 
 .article ul,
