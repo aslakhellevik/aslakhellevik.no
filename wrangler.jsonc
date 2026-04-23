@@ -1,0 +1,9 @@
+{
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "aslakhellevik-no",
+    "compatibility_date": "2026-04-23",
+    "assets": {
+        "directory": "./dist",
+        "not_found_handling": "404-page"
+    }
+}
