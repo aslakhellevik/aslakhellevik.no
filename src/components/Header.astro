@@ -8,14 +8,16 @@ const isActive = (href: string) =>
 ---
 
 <header class="border-b border-border-subtle">
-    <div class="mx-auto max-w-4xl px-6 py-5 flex items-center justify-between gap-6">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 py-5 flex items-center justify-between gap-4 sm:gap-6">
         <a
             href="/"
+            aria-label={SITE.name}
             class="font-semibold tracking-tight text-fg no-underline hover:text-accent"
         >
-            {SITE.name}
+            <span class="sm:hidden">AH</span>
+            <span class="hidden sm:inline">{SITE.name}</span>
         </a>
-        <nav class="flex items-center gap-5 text-sm">
+        <nav class="flex items-center gap-3 sm:gap-5 text-sm">
             {
                 NAV_LINKS.map((link) => (
                     <a

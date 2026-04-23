@@ -102,7 +102,7 @@ System fallbacks:
 A deliberately small component set. Don't add more without justification.
 
 ### Header
-Max-width 4xl, `border-b border-border-subtle`. Name (links to `/`) on left, nav links on right. Nav links are `text-sm`, muted when inactive, `text-accent` when active. Theme toggle at far right. No hamburger — if nav outgrows the bar, reduce links.
+Max-width 4xl, `border-b border-border-subtle`. Name (links to `/`) on left — full `SITE.name` at `sm:` and up, initials `"AH"` below `sm:` to keep the bar fitting on narrow viewports. `aria-label` on the brand link preserves the full name for assistive tech. Nav links are `text-sm`, muted when inactive, `text-accent` when active. Theme toggle at far right. No hamburger — if nav outgrows the bar, shrink the name or reduce links, don't hide them.
 
 ### Footer
 Mirror of header: `border-t`, max-w-4xl. Copyright left, social links right.
@@ -194,7 +194,7 @@ Image corners: `rounded-md` (portraits) or `rounded-lg` (cards). Never circular 
 ## 8. Responsive Behavior
 
 - **Mobile-first.** Design at ~375px, then enhance at `sm:` (640px) and above.
-- **Header:** links always visible, no hamburger. Breakpoint behavior: if nav outgrows the bar at a given viewport, reduce the number of links — don't hide them.
+- **Header:** links always visible, no hamburger. Below `sm:`, container padding tightens from `px-6` → `px-4`, nav gap tightens from `gap-5` → `gap-3`, and the brand mark shows `"AH"` instead of the full `SITE.name`. If nav still outgrows the bar at any viewport, reduce the number of links — don't hide them behind a menu.
 - **About grid:** `grid sm:grid-cols-[200px_1fr]` — photo + bio side-by-side on desktop, stacked on mobile.
 - **List rows:** `flex flex-col sm:flex-row sm:items-baseline sm:justify-between` — stacks vertically on mobile, horizontal at `sm`.
 - **Article:** body-level padding on mobile; the 65ch column centers naturally as the viewport grows.
