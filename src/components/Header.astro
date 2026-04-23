@@ -7,17 +7,19 @@ const isActive = (href: string) =>
     href === "/" ? path === "/" : path === href || path.startsWith(href + "/");
 ---
 
-<header class="border-b border-border-subtle">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 py-5 flex items-center justify-between gap-4 sm:gap-6">
+<header class="border-b border-border-subtle relative">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 py-5 flex items-center justify-between gap-4">
         <a
             href="/"
-            aria-label={SITE.name}
             class="font-semibold tracking-tight text-fg no-underline hover:text-accent"
         >
-            <span class="sm:hidden">AH</span>
-            <span class="hidden sm:inline">{SITE.name}</span>
+            {SITE.name}
         </a>
-        <nav class="flex items-center gap-3 sm:gap-5 text-sm">
+
+        <nav
+            class="hidden sm:flex items-center gap-5 text-sm"
+            aria-label="Primary"
+        >
             {
                 NAV_LINKS.map((link) => (
                     <a
@@ -34,7 +36,244 @@ const isActive = (href: string) =>
                     </a>
                 ))
             }
-            <ThemeToggle />
         </nav>
+
+        <div class="flex items-center gap-3">
+            <button
+                type="button"
+                data-search-open
+                aria-label="Search"
+                class="hidden sm:inline-flex items-center gap-2 rounded-md border border-border-subtle bg-surface px-3 py-1.5 text-sm text-muted hover:text-fg transition-colors"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-4 h-4"
+                >
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <path d="m21 21-4.3-4.3"></path>
+                </svg>
+                <span>Search</span>
+                <kbd
+                    class="ml-2 rounded border border-border-subtle px-1.5 text-[10px] font-mono"
+                    >⌘K</kbd
+                >
+            </button>
+
+            <ThemeToggle />
+
+            <button
+                type="button"
+                data-menu-toggle
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="mobile-drawer"
+                class="sm:hidden -mr-2 p-2 text-fg"
+            >
+                <svg
+                    data-menu-icon="closed"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-6 h-6 block"
+                    aria-hidden="true"
+                >
+                    <path d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+                <svg
+                    data-menu-icon="open"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-6 h-6 hidden"
+                    aria-hidden="true"
+                >
+                    <path d="M6 6l12 12M6 18L18 6"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div
+        id="mobile-drawer"
+        data-drawer
+        hidden
+        class="sm:hidden absolute top-full inset-x-0 z-40 border-b border-border-subtle bg-bg shadow-[0_8px_24px_-16px_rgba(0,0,0,0.15)]"
+    >
+        <div class="px-4 py-4 flex flex-col gap-3">
+            <button
+                type="button"
+                data-search-open
+                class="flex items-center gap-2 rounded-md border border-border-subtle bg-surface px-3 py-2 text-sm text-muted w-full text-left"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-4 h-4"
+                >
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <path d="m21 21-4.3-4.3"></path>
+                </svg>
+                <span>Search…</span>
+            </button>
+            <nav class="flex flex-col" aria-label="Primary (mobile)">
+                {
+                    NAV_LINKS.map((link) => (
+                        <a
+                            href={link.href}
+                            aria-current={
+                                isActive(link.href) ? "page" : undefined
+                            }
+                            class:list={[
+                                "no-underline py-2 text-base",
+                                isActive(link.href)
+                                    ? "text-accent"
+                                    : "text-fg hover:text-accent",
+                            ]}
+                        >
+                            {link.label}
+                        </a>
+                    ))
+                }
+            </nav>
+        </div>
     </div>
 </header>
+
+<div
+    id="search-modal"
+    data-search-modal
+    hidden
+    role="dialog"
+    aria-modal="true"
+    aria-label="Search"
+    class="fixed inset-0 z-50 bg-bg/80 backdrop-blur-sm flex items-start justify-center pt-16 sm:pt-24 px-4"
+>
+    <div
+        class="w-full max-w-xl bg-bg rounded-lg border border-border-subtle p-4 max-h-[75vh] overflow-y-auto"
+    >
+        <div id="search"></div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+
+<script is:inline>
+    (() => {
+        const drawer = document.querySelector("[data-drawer]");
+        const menuBtn = document.querySelector("[data-menu-toggle]");
+        const iconClosed = menuBtn?.querySelector('[data-menu-icon="closed"]');
+        const iconOpen = menuBtn?.querySelector('[data-menu-icon="open"]');
+        const searchModal = document.querySelector("[data-search-modal]");
+        const searchTriggers = document.querySelectorAll("[data-search-open]");
+
+        function setDrawerOpen(open) {
+            if (!drawer || !menuBtn) return;
+            drawer.hidden = !open;
+            menuBtn.setAttribute("aria-expanded", String(open));
+            menuBtn.setAttribute(
+                "aria-label",
+                open ? "Close menu" : "Open menu",
+            );
+            iconClosed?.classList.toggle("hidden", open);
+            iconClosed?.classList.toggle("block", !open);
+            iconOpen?.classList.toggle("hidden", !open);
+            iconOpen?.classList.toggle("block", open);
+            if (open) document.body.style.overflow = "hidden";
+            else if (searchModal?.hidden !== false)
+                document.body.style.overflow = "";
+        }
+
+        menuBtn?.addEventListener("click", () => {
+            setDrawerOpen(drawer?.hidden ?? false);
+        });
+
+        let pagefindReady = null;
+        function ensurePagefind() {
+            if (pagefindReady) return pagefindReady;
+            pagefindReady = (async () => {
+                try {
+                    const mod = await import("/pagefind/pagefind-ui.js");
+                    new mod.PagefindUI({
+                        element: "#search",
+                        showSubResults: true,
+                        showImages: false,
+                        resetStyles: false,
+                    });
+                } catch (e) {
+                    const el = document.getElementById("search");
+                    if (el)
+                        el.textContent =
+                            "Search isn't available in dev mode — build the site to use it.";
+                    console.warn("Pagefind not loaded:", e);
+                }
+            })();
+            return pagefindReady;
+        }
+
+        function focusSearchInput() {
+            setTimeout(() => {
+                const input = searchModal?.querySelector(
+                    "input.pagefind-ui__search-input, #search input",
+                );
+                input?.focus();
+            }, 60);
+        }
+
+        async function openSearch() {
+            if (!searchModal) return;
+            setDrawerOpen(false);
+            searchModal.hidden = false;
+            document.body.style.overflow = "hidden";
+            await ensurePagefind();
+            focusSearchInput();
+        }
+
+        function closeSearch() {
+            if (!searchModal) return;
+            searchModal.hidden = true;
+            if (drawer?.hidden !== false) document.body.style.overflow = "";
+        }
+
+        searchTriggers.forEach((btn) =>
+            btn.addEventListener("click", openSearch),
+        );
+
+        searchModal?.addEventListener("click", (e) => {
+            if (e.target === searchModal) closeSearch();
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                if (searchModal && !searchModal.hidden) {
+                    closeSearch();
+                    return;
+                }
+                if (drawer && !drawer.hidden) setDrawerOpen(false);
+                return;
+            }
+            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+                e.preventDefault();
+                openSearch();
+            }
+        });
+    })();
+</script>

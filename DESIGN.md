@@ -102,7 +102,23 @@ System fallbacks:
 A deliberately small component set. Don't add more without justification.
 
 ### Header
-Max-width 4xl, `border-b border-border-subtle`. Name (links to `/`) on left — full `SITE.name` at `sm:` and up, initials `"AH"` below `sm:` to keep the bar fitting on narrow viewports. `aria-label` on the brand link preserves the full name for assistive tech. Nav links are `text-sm`, muted when inactive, `text-accent` when active. Theme toggle at far right. No hamburger — if nav outgrows the bar, shrink the name or reduce links, don't hide them.
+Max-width 4xl, `border-b border-border-subtle`. Full `SITE.name` always on the left (links to `/`) — never shortened. Nav layout splits by viewport:
+
+- **`sm:` and up:** inline nav links in the middle (`text-sm`, muted when inactive, `text-accent` when active), then a `Search` button (with `⌘K` kbd hint) and the theme toggle on the right. No hamburger.
+- **Below `sm:`:** only the name, theme toggle, and a hamburger button. Tapping the hamburger opens the mobile drawer (see below).
+
+The theme toggle is always visible in the bar — never collapsed into the hamburger menu — so users can switch light/dark without opening a menu.
+
+### Mobile drawer
+Triggered by the hamburger button below `sm:`. Slides down below the header, absolutely positioned, full-width, `bg-bg` with a bottom border. Contents, top to bottom: a full-width `Search…` button (same look as the desktop search trigger, tapping opens the search modal), then the primary nav links stacked vertically at `text-base`. Body scroll locks while the drawer is open. Closes on: hamburger re-tap, any nav link tap, or Esc. Icon swaps between a three-line bars icon (closed) and an X (open). Hamburger exposes `aria-expanded` and `aria-controls` on the button, and `role="dialog"` is NOT used here — it's a simple expandable panel, not a modal.
+
+### Search
+Pagefind-powered full-site search. Opens as a centered modal overlay with `bg-bg/80 backdrop-blur-sm`, triggered by:
+- The `Search` button in the desktop header
+- The `Search…` button in the mobile drawer
+- `⌘K` / `Ctrl-K` from anywhere
+
+The Pagefind UI renders inside the modal. Results link to the matching page with a snippet and highlighted match. Body scroll locks while open. Closes on: clicking the backdrop, pressing Esc, or navigating to a result. The Pagefind script is lazy-loaded on first search open (~200 KB gzipped) — pages don't pay for search until someone uses it. Pagefind styles are themed via CSS custom properties in `global.css` to match the site tokens (`--pagefind-ui-primary: var(--accent)`, etc.).
 
 ### Footer
 Mirror of header: `border-t`, max-w-4xl. Copyright left, social links right.
@@ -184,7 +200,7 @@ Image corners: `rounded-md` (portraits) or `rounded-lg` (cards). Never circular 
 - Add shadows, gradients, glass morphism, glows, or depth effects.
 - Use bold italic, all-caps body, or decorative display fonts.
 - Add hero imagery, illustrations, or decorative graphics to the landing page.
-- Ship an interactive island without a concrete reason. Astro baseline is 0 KB JS per page — preserve it.
+- Ship an interactive island without a concrete reason. Astro baseline is 0 KB JS per page — preserve it. Current exceptions: theme toggle, mobile drawer, and search modal (the search script itself is lazy-loaded on open).
 - Put a border on a card. Surface tint alone is enough.
 - Pad an inline link into a button shape unless it's a genuine CTA.
 - Use the accent as a background fill for anything except `::selection`. The accent is an ink color.
@@ -194,7 +210,7 @@ Image corners: `rounded-md` (portraits) or `rounded-lg` (cards). Never circular 
 ## 8. Responsive Behavior
 
 - **Mobile-first.** Design at ~375px, then enhance at `sm:` (640px) and above.
-- **Header:** links always visible, no hamburger. Below `sm:`, container padding tightens from `px-6` → `px-4`, nav gap tightens from `gap-5` → `gap-3`, and the brand mark shows `"AH"` instead of the full `SITE.name`. If nav still outgrows the bar at any viewport, reduce the number of links — don't hide them behind a menu.
+- **Header:** desktop (`sm:`+) shows inline nav + search button + theme toggle, no hamburger. Below `sm:`, nav collapses into a hamburger-triggered drawer (see Mobile drawer component) while the name and theme toggle stay in the bar. The theme toggle never goes behind a menu — always one tap away. Container padding tightens from `px-6` → `px-4` below `sm:`.
 - **About grid:** `grid sm:grid-cols-[200px_1fr]` — photo + bio side-by-side on desktop, stacked on mobile.
 - **List rows:** `flex flex-col sm:flex-row sm:items-baseline sm:justify-between` — stacks vertically on mobile, horizontal at `sm`.
 - **Article:** body-level padding on mobile; the 65ch column centers naturally as the viewport grows.
