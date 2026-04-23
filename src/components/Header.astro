@@ -59,10 +59,6 @@ const isActive = (href: string) =>
                     <path d="m21 21-4.3-4.3"></path>
                 </svg>
                 <span>Search</span>
-                <kbd
-                    class="ml-2 rounded border border-border-subtle px-1.5 text-[10px] font-mono"
-                    >⌘K</kbd
-                >
             </button>
 
             <ThemeToggle />
@@ -206,13 +202,36 @@ const isActive = (href: string) =>
             setDrawerOpen(drawer?.hidden ?? false);
         });
 
+        function loadPagefindScript() {
+            return new Promise((resolve, reject) => {
+                if (window.PagefindUI) {
+                    resolve();
+                    return;
+                }
+                const existing = document.querySelector(
+                    "script[data-pagefind-ui]",
+                );
+                if (existing) {
+                    existing.addEventListener("load", () => resolve());
+                    existing.addEventListener("error", reject);
+                    return;
+                }
+                const s = document.createElement("script");
+                s.src = "/pagefind/pagefind-ui.js";
+                s.dataset.pagefindUi = "true";
+                s.onload = () => resolve();
+                s.onerror = reject;
+                document.head.appendChild(s);
+            });
+        }
+
         let pagefindReady = null;
         function ensurePagefind() {
             if (pagefindReady) return pagefindReady;
             pagefindReady = (async () => {
                 try {
-                    const mod = await import("/pagefind/pagefind-ui.js");
-                    new mod.PagefindUI({
+                    await loadPagefindScript();
+                    new window.PagefindUI({
                         element: "#search",
                         showSubResults: true,
                         showImages: false,
