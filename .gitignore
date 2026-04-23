@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 # Notes for Claude
 CONTEXT.md
+.claude/
