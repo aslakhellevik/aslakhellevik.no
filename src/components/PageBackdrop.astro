@@ -1,0 +1,53 @@
+---
+import Contour from "./backdrops/Contour.astro";
+import Penrose from "./backdrops/Penrose.astro";
+import type { BackdropVariant } from "./backdropTypes";
+
+interface Props {
+    variant?: BackdropVariant;
+}
+
+const { variant = "contour" } = Astro.props;
+const isContour = variant === "contour" || variant === "contour-soft";
+const isSoft = variant === "contour-soft";
+
+// Glow lives on the wrapper as a CSS gradient (viewport-anchored — same
+// appearance at all aspect ratios). Stops are calibrated to match the
+// visible behavior of the previous SVG-based glow on a wide PC screen.
+const glow = isSoft
+    ? { peak: 13, mid: 7.5, low: 2.8 }
+    : { peak: 14, mid: 11.8, low: 4.5 };
+
+const glowStops =
+    `color-mix(in srgb, var(--accent) ${glow.peak}%, transparent) 0%, ` +
+    `color-mix(in srgb, var(--accent) ${glow.mid}%, transparent) 3.3%, ` +
+    `color-mix(in srgb, var(--accent) ${glow.low}%, transparent) 18.9%, ` +
+    `transparent 38.9%`;
+
+const glowStyle =
+    `background-image: ` +
+    `linear-gradient(to bottom, ${glowStops}), ` +
+    `linear-gradient(to top, ${glowStops});`;
+---
+
+{
+    variant !== "none" && (
+        <div
+            class="pointer-events-none fixed inset-0 -z-10 text-accent"
+            aria-hidden="true"
+            data-page-backdrop
+            style={glowStyle}
+        >
+            <svg
+                viewBox="0 0 1600 1000"
+                fill="none"
+                class="h-full w-full"
+                focusable="false"
+                preserveAspectRatio="xMidYMid slice"
+            >
+                {isContour && <Contour soft={isSoft} />}
+                {variant === "penrose" && <Penrose />}
+            </svg>
+        </div>
+    )
+}

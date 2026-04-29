@@ -1,43 +1,103 @@
-# Astro Starter Kit: Minimal
+# aslakhellevik.no
+
+Personal site for Aslak Hellevik. Astro + Tailwind v4, static-site generated, deployed to Cloudflare.
+
+## Quick start
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # → ./dist/
+npm run preview  # preview the production build locally
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Repo layout
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```
+src/
+├── pages/                 # routes (file-based)
+│   ├── index.astro        # home
+│   ├── about.astro
+│   ├── contact.astro
+│   ├── services.astro
+│   ├── 404.astro
+│   ├── blog/              # blog index + [...slug].astro
+│   └── projects/          # projects index + [...slug].astro
+├── content/               # Astro Content Collections
+│   ├── blog/              # *.md posts
+│   └── projects/          # *.md case studies
+├── layouts/
+│   └── BaseLayout.astro   # shared <html>, header, footer, page backdrop
+├── components/
+│   ├── Header.astro       # nav, search trigger, theme toggle, Penrose star
+│   ├── Footer.astro
+│   ├── ThemeToggle.astro
+│   ├── PageBackdrop.astro # routes to a backdrop variant
+│   ├── backdrops/         # one .astro file per motif (contour, penrose)
+│   ├── Icon.astro         # inline SVG icon set
+│   ├── IconBadge.astro    # accent-tinted chip wrapping an Icon
+│   ├── HatTile.astro      # 404-only easter egg
+│   └── *.ts               # iconTypes, backdropTypes
+├── styles/
+│   └── global.css         # CSS variables, fonts, base styles
+└── consts.ts              # SITE, NAV_LINKS, SOCIAL_LINKS, WORK, EDUCATION
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Design system
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+The full visual specification lives in `DESIGN.md`. Highlights:
 
-Any static assets, like images, can be placed in the `public/` directory.
+- **Two backdrop motifs**, page-wide fixed SVG: `contour` / `contour-soft` (topographic lines, softened variant for writing surfaces) and `penrose` (P3 rhombus tiling for technical pages). A `none` escape hatch is also available. Picked per page via `<BaseLayout backdrop="...">`.
+- **Warm horizon glow** at top + bottom of every page in the accent color.
+- **One accent color** (amber). No secondary accents.
+- **Two type families**: Inter for UI, Newsreader (serif) for article prose.
+- **Light + dark mode** via CSS custom properties + a `.dark` class on `<html>`. Pre-paint script in `<head>` avoids FOUC.
 
-## 🧞 Commands
+When extending the design, read `DESIGN.md` first.
 
-All commands are run from the root of the project, from a terminal:
+## Adding content
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+**Blog post:** create `src/content/blog/<slug>.md` with frontmatter:
 
-## 👀 Want to learn more?
+```yaml
+---
+title: Post title
+date: 2026-04-21
+description: One-line description for meta + listing.
+tags: [tag1, tag2]
+draft: false
+---
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+**Project:** create `src/content/projects/<slug>.md` with frontmatter:
+
+```yaml
+---
+title: Project title
+description: One-line description.
+year: "2026"
+link: https://example.com  # optional
+repo: https://github.com/...  # optional
+tags: [tag1]
+featured: false
+draft: false
+---
+```
+
+Drafts (`draft: true`) are excluded from the build.
+
+## Deployment
+
+Static site, ships from `./dist/`. Pagefind search index is generated as part of `npm run build`. Currently deployed to Cloudflare (see `CONTEXT.md` for infrastructure details).
+
+## Operational context
+
+`CONTEXT.md` (gitignored) holds the project goals, infrastructure state, and pre-launch checklist. Read it before launch-adjacent work.
+
+## Stack
+
+- [Astro](https://docs.astro.build) — static site generator
+- [Tailwind CSS v4](https://tailwindcss.com) — utility CSS
+- [Pagefind](https://pagefind.app) — full-text search at build time
+- [Bunny Fonts](https://fonts.bunny.net) — GDPR-friendly Google Fonts mirror
+- TypeScript (strict)

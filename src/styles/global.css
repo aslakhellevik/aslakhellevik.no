@@ -28,7 +28,7 @@
     --subtle: #78716c;
     --accent: #b45309;
     --surface: #f5f5f4;
-    --border-subtle: #e7e5e4;
+    --border-subtle: #a8a29e;
     color-scheme: light;
 }
 
@@ -39,7 +39,7 @@
     --subtle: #78716c;
     --accent: #fbbf24;
     --surface: #1c1917;
-    --border-subtle: #292524;
+    --border-subtle: #57534e;
     color-scheme: dark;
 }
 

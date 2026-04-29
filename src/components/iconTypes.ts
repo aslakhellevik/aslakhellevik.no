@@ -1,0 +1,16 @@
+export type IconName =
+    | "arrow-left"
+    | "book-open"
+    | "briefcase"
+    | "calendar"
+    | "clock"
+    | "code"
+    | "cube"
+    | "external-link"
+    | "file-text"
+    | "github"
+    | "graduation-cap"
+    | "linkedin"
+    | "mail"
+    | "rss"
+    | "tag";

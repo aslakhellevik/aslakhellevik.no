@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Icon from "../../components/Icon.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
@@ -21,7 +22,7 @@ const monthDay = new Intl.DateTimeFormat("en-GB", {
 });
 ---
 
-<BaseLayout title="Writing">
+<BaseLayout title="Writing" backdrop="contour">
     <section class="py-16">
         <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
             Writing
@@ -47,16 +48,25 @@ const monthDay = new Intl.DateTimeFormat("en-GB", {
                                     <li class="flex items-baseline justify-between gap-4">
                                         <a
                                             href={`/blog/${post.id}`}
-                                            class="text-fg no-underline hover:text-accent"
+                                            class="inline-flex min-w-0 items-center gap-2 text-fg no-underline hover:text-accent"
                                         >
+                                            <Icon
+                                                name="file-text"
+                                                class="h-4 w-4 shrink-0 text-accent"
+                                            />
                                             {post.data.title}
                                         </a>
-                                        <time
-                                            datetime={post.data.date.toISOString()}
-                                            class="shrink-0 text-sm text-muted tabular-nums"
+                                        <span
+                                            class="inline-flex shrink-0 items-center gap-1.5 text-sm text-muted tabular-nums"
                                         >
-                                            {monthDay.format(post.data.date)}
-                                        </time>
+                                            <Icon
+                                                name="calendar"
+                                                class="h-3.5 w-3.5"
+                                            />
+                                            <time datetime={post.data.date.toISOString()}>
+                                                {monthDay.format(post.data.date)}
+                                            </time>
+                                        </span>
                                     </li>
                                 ))}
                             </ul>

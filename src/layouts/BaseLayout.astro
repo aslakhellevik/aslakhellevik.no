@@ -2,18 +2,22 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import PageBackdrop from "../components/PageBackdrop.astro";
+import type { BackdropVariant } from "../components/backdropTypes";
 import { SITE } from "../consts";
 
 interface Props {
     title?: string;
     description?: string;
     wide?: boolean;
+    backdrop?: BackdropVariant;
 }
 
 const {
     title,
     description = SITE.description,
     wide = false,
+    backdrop = "contour",
 } = Astro.props;
 
 const fullTitle = title ? `${title} — ${SITE.name}` : SITE.name;
@@ -52,7 +56,8 @@ const ogImage = new URL("/og-default.png", Astro.site).toString();
             })();
         </script>
     </head>
-    <body class="min-h-screen flex flex-col">
+    <body class="min-h-screen flex flex-col isolate">
+        <PageBackdrop variant={backdrop} />
         <Header />
         <main class={`flex-1 mx-auto w-full px-6 ${wide ? "max-w-4xl" : "max-w-2xl"}`}>
             <slot />

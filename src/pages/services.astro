@@ -1,20 +1,24 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import IconBadge from "../components/IconBadge.astro";
 import { SOCIAL_LINKS } from "../consts";
 
 const services = [
     {
+        icon: "briefcase",
         title: "AI consulting",
         body: "Working with teams and individuals on practical applications of modern AI — from scoping what's feasible to hands-on implementation. Short engagements and longer partnerships both fine.",
     },
     {
+        icon: "book-open",
         title: "Private teaching",
         body: "One-on-one or small-group sessions for people wanting to go deeper on AI tools, build their own workflows, or learn to ship with modern stacks. Tailored to your goals.",
     },
-];
+] as const;
 ---
 
-<BaseLayout title="Services">
+<BaseLayout title="Services" backdrop="penrose">
     <section class="py-16">
         <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
             Services
@@ -24,26 +28,32 @@ const services = [
             <a href="/contact">get in touch</a>.
         </p>
 
-        <ul class="mt-12 space-y-5">
+        <ul class="mt-12 divide-y divide-border-subtle border-y border-border-subtle">
             {
                 services.map((s) => (
-                    <li class="bg-surface rounded-lg p-7">
-                        <h2 class="text-xl font-semibold tracking-tight">
-                            {s.title}
-                        </h2>
-                        <p class="mt-2 text-muted leading-relaxed">
-                            {s.body}
-                        </p>
+                    <li class="py-7">
+                        <div class="flex items-start gap-4 sm:gap-5">
+                            <IconBadge icon={s.icon} compact class="mt-0.5" />
+                            <div class="min-w-0">
+                                <h2 class="text-xl font-semibold tracking-tight">
+                                    {s.title}
+                                </h2>
+                                <p class="mt-2 max-w-3xl text-muted leading-relaxed">
+                                    {s.body}
+                                </p>
+                            </div>
+                        </div>
                     </li>
                 ))
             }
         </ul>
 
-        <div class="mt-16 pt-8 border-t border-border-subtle">
+        <div class="mt-10">
             <a
                 href={`mailto:${SOCIAL_LINKS.email}`}
-                class="inline-block font-medium"
+                class="inline-flex items-center gap-2 font-medium"
             >
+                <Icon name="mail" class="h-4 w-4" />
                 Start a conversation →
             </a>
         </div>

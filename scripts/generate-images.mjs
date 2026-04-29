@@ -1,160 +1,141 @@
-// Generates the typographic OG image and apple-touch-icon as PNGs.
-// Uses satori for accurate typography (real Inter metrics via @fontsource) + sharp to rasterize.
+// Generates the default Open Graph image, Apple touch icon, and favicon fallback.
 // Run with: node scripts/generate-images.mjs
-import satori from "satori";
 import sharp from "sharp";
-import { readFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const publicDir = resolve(__dirname, "..", "public");
-const fontDir = resolve(__dirname, "..", "node_modules", "@fontsource", "inter", "files");
 
 const COLORS = {
     bg: "#fafaf9",
     fg: "#1c1917",
     muted: "#57534e",
     accent: "#b45309",
+    border: "#a8a29e",
 };
 
-const [interRegular, interSemiBold] = await Promise.all([
-    readFile(resolve(fontDir, "inter-latin-400-normal.woff")),
-    readFile(resolve(fontDir, "inter-latin-600-normal.woff")),
-]);
-
-const fonts = [
-    { name: "Inter", data: interRegular, weight: 400, style: "normal" },
-    { name: "Inter", data: interSemiBold, weight: 600, style: "normal" },
+const starPolygons = [
+    "0,0 10,0 13.09,9.51 3.09,9.51",
+    "0,0 3.09,9.51 -5,15.39 -8.09,5.88",
+    "0,0 -8.09,5.88 -16.18,0 -8.09,-5.88",
+    "0,0 -8.09,-5.88 -5,-15.39 3.09,-9.51",
+    "0,0 3.09,-9.51 13.09,-9.51 10,0",
 ];
 
-// Lightweight hyperscript so we don't need JSX in this .mjs file.
-const h = (type, props = {}, ...children) => ({
-    type,
-    props: { ...props, children: children.length === 1 ? children[0] : children },
-});
-
-async function renderToPng(svg, width, height) {
-    return sharp(Buffer.from(svg)).resize(width, height).png().toBuffer();
+function starMarkup(scale = 1) {
+    return `
+        <g transform="scale(${scale})">
+            ${starPolygons
+                .map(
+                    (points) => `
+                        <polygon
+                            points="${points}"
+                            fill="${COLORS.accent}"
+                            fill-opacity="0.18"
+                            stroke="${COLORS.accent}"
+                            stroke-width="1.2"
+                            stroke-linejoin="round"
+                        />
+                    `,
+                )
+                .join("")}
+            <circle cx="0" cy="0" r="1.35" fill="${COLORS.accent}" />
+        </g>
+    `;
 }
 
-// --- OG image (1200x630) ---
-// Satori requires explicit display: flex on every element with >1 child.
-const ogTree = h(
-    "div",
-    {
-        style: {
-            width: "1200px",
-            height: "630px",
-            background: COLORS.bg,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            padding: "80px 80px 100px 80px",
-            fontFamily: "Inter",
-        },
-    },
-    h(
-        "div",
-        { style: { display: "flex", flexDirection: "column" } },
-        h(
-            "div",
-            {
-                style: {
-                    display: "flex",
-                    fontSize: "96px",
-                    fontWeight: 600,
-                    color: COLORS.fg,
-                    letterSpacing: "-0.03em",
-                    lineHeight: 1.05,
-                },
-            },
-            "Aslak Hellevik",
-        ),
-        h(
-            "div",
-            {
-                style: {
-                    display: "flex",
-                    marginTop: "24px",
-                    fontSize: "34px",
-                    fontWeight: 400,
-                    color: COLORS.muted,
-                },
-            },
-            "Statistics · Philosophy",
-        ),
-    ),
-    h(
-        "div",
-        {
-            style: {
-                display: "flex",
-                flexDirection: "column",
-            },
-        },
-        h(
-            "div",
-            {
-                style: {
-                    display: "flex",
-                    fontSize: "22px",
-                    fontWeight: 500,
-                    color: COLORS.muted,
-                    letterSpacing: "0.15em",
-                },
-            },
-            "ASLAKHELLEVIK.NO",
-        ),
-        h("div", {
-            style: {
-                display: "flex",
-                marginTop: "40px",
-                width: "1040px",
-                height: "8px",
-                background: COLORS.accent,
-            },
-        }),
-    ),
-);
+const contourLines = Array.from({ length: 30 }, (_, i) => {
+    const y = 26 + i * 21;
+    const amp = 10 + (i % 6) * 3;
+    return `
+        <path
+            d="M-40 ${y + amp} C210 ${y - amp}, 470 ${y + amp * 1.2}, 760 ${y - amp * 0.7} S1090 ${y + amp}, 1240 ${y - amp * 0.35}"
+            stroke="${COLORS.accent}"
+            stroke-width="0.8"
+            stroke-opacity="0.035"
+            fill="none"
+            stroke-linecap="round"
+        />
+    `;
+}).join("");
 
-const ogSvg = await satori(ogTree, { width: 1200, height: 630, fonts });
+const ogSvg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+        <rect width="1200" height="630" fill="${COLORS.bg}" />
+        <rect width="1200" height="630" fill="${COLORS.accent}" opacity="0.018" />
+        ${contourLines}
+        <circle cx="168" cy="315" r="98" fill="${COLORS.accent}" opacity="0.045" />
+        <g transform="translate(168 315)">${starMarkup(4.2)}</g>
+        <rect x="316" y="192" width="1" height="246" rx="0.5" fill="${COLORS.border}" opacity="0.55" />
+        <text x="370" y="295" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="700" fill="${COLORS.fg}">
+            Aslak Hellevik
+        </text>
+        <text x="374" y="355" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="400" fill="${COLORS.muted}">
+            Statistics, modelling, applied AI, and practical tools.
+        </text>
+        <text x="374" y="402" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="500" letter-spacing="3" fill="${COLORS.accent}">
+            ASLAKHELLEVIK.NO
+        </text>
+    </svg>
+`;
+
+const appleSvg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+        <rect width="180" height="180" rx="34" fill="${COLORS.bg}" />
+        <rect width="180" height="180" rx="34" fill="${COLORS.accent}" opacity="0.035" />
+        <g transform="translate(90 90)">${starMarkup(3.9)}</g>
+    </svg>
+`;
+
+const faviconSvg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="-20 -20 40 40">
+        <rect x="-20" y="-20" width="40" height="40" rx="8" fill="${COLORS.bg}" />
+        <g>${starMarkup(1)}</g>
+    </svg>
+`;
+
+async function makeIcoFromPngs(entries) {
+    const header = Buffer.alloc(6);
+    header.writeUInt16LE(0, 0);
+    header.writeUInt16LE(1, 2);
+    header.writeUInt16LE(entries.length, 4);
+
+    const directory = Buffer.alloc(entries.length * 16);
+    let offset = header.length + directory.length;
+
+    for (const [index, entry] of entries.entries()) {
+        const base = index * 16;
+        directory.writeUInt8(entry.size >= 256 ? 0 : entry.size, base);
+        directory.writeUInt8(entry.size >= 256 ? 0 : entry.size, base + 1);
+        directory.writeUInt8(0, base + 2);
+        directory.writeUInt8(0, base + 3);
+        directory.writeUInt16LE(1, base + 4);
+        directory.writeUInt16LE(32, base + 6);
+        directory.writeUInt32LE(entry.png.length, base + 8);
+        directory.writeUInt32LE(offset, base + 12);
+        offset += entry.png.length;
+    }
+
+    return Buffer.concat([header, directory, ...entries.map((entry) => entry.png)]);
+}
+
 await sharp(Buffer.from(ogSvg))
     .png()
     .toFile(resolve(publicDir, "og-default.png"));
 console.log("wrote public/og-default.png (1200x630)");
 
-// --- Apple touch icon (180x180) ---
-const appleTree = h(
-    "div",
-    {
-        style: {
-            width: "180px",
-            height: "180px",
-            background: COLORS.bg,
-            borderRadius: "36px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontFamily: "Inter",
-        },
-    },
-    h(
-        "div",
-        {
-            style: {
-                fontSize: "96px",
-                fontWeight: 600,
-                color: COLORS.accent,
-                letterSpacing: "-0.05em",
-            },
-        },
-        "AH",
-    ),
-);
-
-const appleSvg = await satori(appleTree, { width: 180, height: 180, fonts });
 await sharp(Buffer.from(appleSvg))
     .png()
     .toFile(resolve(publicDir, "apple-touch-icon.png"));
 console.log("wrote public/apple-touch-icon.png (180x180)");
+
+const faviconEntries = await Promise.all(
+    [16, 32, 48].map(async (size) => ({
+        size,
+        png: await sharp(Buffer.from(faviconSvg)).resize(size, size).png().toBuffer(),
+    })),
+);
+await writeFile(resolve(publicDir, "favicon.ico"), await makeIcoFromPngs(faviconEntries));
+console.log("wrote public/favicon.ico (16/32/48)");

@@ -13,7 +13,7 @@ A **hybrid minimal-modern / editorial** aesthetic for a personal site combining 
 
 Reference points: leerob.io, brianlovin.com (minimal-modern); theshamblog.com, waitbutwhy.com (editorial).
 
-Character: warm, considered, quiet. Never corporate, never playful, never loud. Typography and whitespace do the work; decoration is absent on purpose.
+Character: warm, considered, quiet. Mathematically inclined. Never corporate, never playful, never loud. Typography and whitespace do most of the work; a quiet **mathematical/abstract layer** sits behind the content as identity texture (see §6.5 — Backdrops & motifs).
 
 ---
 
@@ -102,7 +102,7 @@ System fallbacks:
 A deliberately small component set. Don't add more without justification.
 
 ### Header
-Max-width 4xl, `border-b border-border-subtle`. Full `SITE.name` always on the left (links to `/`) — never shortened. Nav layout splits by viewport:
+Max-width 4xl, `border-b border-border-subtle`. The brand block on the left is a **Penrose star** (5 thick rhombi meeting at center, 5-fold symmetric, ~18px) + a thin vertical bar separator + the full `SITE.name` linking to `/`. The star is `text-accent` with low fill opacity and acts as a quiet identity rhyme with the Penrose backdrop on technical pages. The name is never shortened. Nav layout splits by viewport:
 
 - **`sm:` and up:** inline nav links in the middle (`text-sm`, muted when inactive, `text-accent` when active), then a `Search` button (with `⌘K` kbd hint) and the theme toggle on the right. No hamburger.
 - **Below `sm:`:** only the name, theme toggle, and a hamburger button. Tapping the hamburger opens the mobile drawer (see below).
@@ -141,6 +141,18 @@ Inline, amber, underlined. Always visible underline (no "underline on hover" —
 ### Article container
 `<article class="py-12 mx-auto max-w-[65ch]">` wraps post bodies. Inner body gets class `.article` which applies the editorial styles (serif, line-height, margins between elements).
 
+### PageBackdrop
+Site-wide fixed-position SVG backdrop, mounted in `BaseLayout` and rendered via `BaseLayout`'s `backdrop` prop (default `"contour"`). Sits at `z-index: -10` inside `body { isolation: isolate }`, so it always stays above the body bg and below all content. Two motifs, with a softer contour mode for long-form reading — see §6.5.
+
+### HatTile
+A small SVG patch of the 2023 Hat aperiodic monotile, generated via the H/T/P/F metatile inflation. Used **only on the 404 page** as an easter egg, with the caption "Lost your hat?" linking to the original arXiv paper. Don't reuse elsewhere — the easter egg works because it's rare.
+
+### Icon
+Single inline-SVG component (`src/components/Icon.astro`) with line icons keyed by a typed `IconName` union (`src/components/iconTypes.ts`). Lucide-style aesthetic. Used for metadata (calendar, clock, tag, file-text on post lists), social links, back-links, and CTA prefixes. Don't introduce a second icon system — extend the union.
+
+### IconBadge
+Small square chip with `bg-accent/10` ring wrapping an `Icon`. Used on home highlights ("I consult / I teach / I build"), services cards, and the contact email anchor. Don't apply to repeating list items — when every row has one, the badge stops doing work.
+
 ---
 
 ## 5. Layout
@@ -171,15 +183,47 @@ Inline, amber, underlined. Always visible underline (no "underline on hover" —
 
 ## 6. Depth / Shadows
 
-**None.** The system is flat by design. Separation comes from:
+**None on content.** The content surface is flat by design. Separation comes from:
 
 - Hairline borders (`--border-subtle`)
 - Background tints (`--surface` vs `--bg`)
 - Whitespace
 
-Do not introduce `box-shadow`, elevation layers, `backdrop-filter`, or drop shadows on images. A shadow is a signal the system has been corrupted.
+Do not introduce `box-shadow`, elevation layers, `backdrop-filter`, or drop shadows on images. A shadow on content is a signal the system has been corrupted.
+
+The single allowed exception is the **warm horizon glow** on the page backdrop (§6.5) — a top + bottom linear gradient in the accent color at low opacity (peak `0.20`). It lives behind all content as atmosphere, never on a card or surface element.
 
 Image corners: `rounded-md` (portraits) or `rounded-lg` (cards). Never circular unless semantically right (e.g. a true avatar).
+
+---
+
+## 6.5 Backdrops & motifs
+
+A page-wide fixed SVG backdrop sits behind all content, providing identity texture. **Two motifs only**, with one reduced-intensity contour mode for writing surfaces:
+
+| Motif | Used on | Visual |
+| --- | --- | --- |
+| `contour` *(default)* | About, blog index, contact, 404 | Topographic-style horizontal contour lines, hand-generated wavy paths, low opacity. Reads as personal / biographical / written. |
+| `contour-soft` | Blog post | Same contour motif with heavily reduced glow/line opacity for reading comfort under long-form prose. Not a separate visual motif — pure intensity tuning. |
+| `penrose` | Home, projects index, project detail, services | Penrose P3 rhombus tiling generated via Robinson-triangle deflation (5 iterations from a 10-triangle sun seed at center). Reads as technical / mathematical / structured. |
+| `none` | *(unused — escape hatch)* | No backdrop at all. Reserve for future surfaces where the backdrop interferes (e.g. an embedded data viz, a deliberately bare page). Don't reach for it without a concrete reason. |
+
+Per-page assignment via `<BaseLayout backdrop="penrose">` etc. The `contour-soft` variant shares the contour SVG component (`Contour.astro` accepts a `soft` prop); `none` short-circuits the wrapper so no backdrop element is rendered at all.
+
+Both motifs share:
+- ViewBox `0 0 1600 1000`, `preserveAspectRatio="xMidYMid slice"`
+- Stroke / fill in `currentColor` (parent's `text-accent`) so light/dark mode swap automatically
+- A unified **warm horizon glow** at top + bottom — symmetric linear gradients (peak `0.20`, mid `0.135`, low `0.052`, fading to `0` at `40%`)
+- Visible on all viewports including mobile
+
+**Don't:**
+- Add a third motif. Two is the design statement; three dilutes identity.
+- Add new motif families. `contour-soft` is only an intensity variant for article readability.
+- Make the motif a focal element. It's atmosphere — opacity should always sit well below content readability threshold.
+
+**Do:**
+- Keep the per-variant SVG self-contained in `src/components/backdrops/<Variant>.astro`.
+- When tuning, test the same change in both light and dark mode (dark-mode amber `#fbbf24` is brighter than light-mode `#b45309`).
 
 ---
 
@@ -197,13 +241,14 @@ Image corners: `rounded-md` (portraits) or `rounded-lg` (cards). Never circular 
 ### DON'T
 
 - Add secondary accent colors (blue, green, purple, pink). **One** accent.
-- Add shadows, gradients, glass morphism, glows, or depth effects.
+- Add shadows, glass morphism, or depth effects on content. (The horizon glow on the backdrop is the single allowed gradient — see §6.5.)
 - Use bold italic, all-caps body, or decorative display fonts.
-- Add hero imagery, illustrations, or decorative graphics to the landing page.
+- Add hero imagery, illustrations, or photographic content to the landing page. (Geometric SVG backdrop is fine — it's structural, not pictorial.)
+- Add a third backdrop motif. Two is the system; more dilutes.
 - Ship an interactive island without a concrete reason. Astro baseline is 0 KB JS per page — preserve it. Current exceptions: theme toggle, mobile drawer, and search modal (the search script itself is lazy-loaded on open).
 - Put a border on a card. Surface tint alone is enough.
 - Pad an inline link into a button shape unless it's a genuine CTA.
-- Use the accent as a background fill for anything except `::selection`. The accent is an ink color.
+- Use the accent as a background fill for anything except `::selection` or the backdrop glow. The accent is an ink color.
 
 ---
 

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
 import { SOCIAL_LINKS } from "../consts";
 ---
 
@@ -9,11 +10,14 @@ import { SOCIAL_LINKS } from "../consts";
             Contact
         </h1>
         <p class="mt-6 text-muted leading-relaxed">
-            The best way to reach me is email. I read everything and reply to
-            most things within a few days.
+            I'd genuinely like to hear from you — about a project, a question,
+            something I wrote, or anything else. The best way to reach me is
+            email; I read everything and reply to most things within a few
+            days.
         </p>
 
-        <div class="mt-10">
+        <div class="mt-10 flex items-center gap-2">
+            <Icon name="mail" class="h-5 w-5 shrink-0 text-accent" />
             <a
                 href={`mailto:${SOCIAL_LINKS.email}`}
                 class="text-xl font-medium"
@@ -22,12 +26,14 @@ import { SOCIAL_LINKS } from "../consts";
             </a>
         </div>
 
-        <ul class="mt-10 space-y-2 text-muted">
-            <li>
+        <ul class="mt-10 space-y-3 text-muted">
+            <li class="flex gap-2">
+                <Icon name="github" class="mt-1 h-4 w-4 shrink-0 text-accent" />
                 <a href={SOCIAL_LINKS.github} rel="me">GitHub</a> — code and
                 side projects.
             </li>
-            <li>
+            <li class="flex gap-2">
+                <Icon name="linkedin" class="mt-1 h-4 w-4 shrink-0 text-accent" />
                 <a href={SOCIAL_LINKS.linkedin} rel="me">LinkedIn</a> — more
                 formal stuff.
             </li>

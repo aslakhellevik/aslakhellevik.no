@@ -1,5 +1,6 @@
 ---
 import { SITE, SOCIAL_LINKS } from "../consts";
+import Icon from "./Icon.astro";
 
 const year = new Date().getFullYear();
 ---
@@ -11,31 +12,36 @@ const year = new Date().getFullYear();
         <p>© {year} {SITE.name}</p>
         <ul class="flex flex-wrap items-center gap-x-5 gap-y-2">
             <li>
-                <a href={`mailto:${SOCIAL_LINKS.email}`} class="no-underline hover:text-accent">
+                <a href={`mailto:${SOCIAL_LINKS.email}`} class="inline-flex items-center gap-1.5 no-underline hover:text-accent">
+                    <Icon name="mail" class="h-3.5 w-3.5" />
                     Email
                 </a>
             </li>
             <li>
-                <a href={SOCIAL_LINKS.github} class="no-underline hover:text-accent" rel="me">
+                <a href={SOCIAL_LINKS.github} class="inline-flex items-center gap-1.5 no-underline hover:text-accent" rel="me">
+                    <Icon name="github" class="h-3.5 w-3.5" />
                     GitHub
                 </a>
             </li>
             <li>
-                <a href={SOCIAL_LINKS.linkedin} class="no-underline hover:text-accent" rel="me">
+                <a href={SOCIAL_LINKS.linkedin} class="inline-flex items-center gap-1.5 no-underline hover:text-accent" rel="me">
+                    <Icon name="linkedin" class="h-3.5 w-3.5" />
                     LinkedIn
                 </a>
             </li>
             {
                 SOCIAL_LINKS.substack && (
                     <li>
-                        <a href={SOCIAL_LINKS.substack} class="no-underline hover:text-accent">
+                        <a href={SOCIAL_LINKS.substack} class="inline-flex items-center gap-1.5 no-underline hover:text-accent">
+                            <Icon name="book-open" class="h-3.5 w-3.5" />
                             Substack
                         </a>
                     </li>
                 )
             }
             <li>
-                <a href="/rss.xml" class="no-underline hover:text-accent">
+                <a href="/rss.xml" class="inline-flex items-center gap-1.5 no-underline hover:text-accent">
+                    <Icon name="rss" class="h-3.5 w-3.5" />
                     RSS
                 </a>
             </li>

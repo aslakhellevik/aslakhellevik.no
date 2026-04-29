@@ -1,0 +1,193 @@
+---
+type Pt = [number, number];
+type Tri = { type: 0 | 1; a: Pt; b: Pt; c: Pt };
+type Diagonal = { p1: Pt; p2: Pt; apex: Pt; type: 0 | 1 };
+type Rhomb = { kind: "thin" | "thick"; points: Pt[]; key: string };
+type Edge = { x1: number; y1: number; x2: number; y2: number };
+
+const phi = (1 + Math.sqrt(5)) / 2;
+const VIEW_W = 1600;
+const VIEW_H = 1000;
+const cx = VIEW_W / 2;
+const cy = VIEW_H / 2;
+const R = 1080;
+const SUBDIVISIONS = 6;
+
+function pointBetween(p1: Pt, p2: Pt, t: number): Pt {
+    return [p1[0] + (p2[0] - p1[0]) * t, p1[1] + (p2[1] - p1[1]) * t];
+}
+
+function subdivide(tri: Tri): Tri[] {
+    const A = tri.a;
+    const B = tri.b;
+    const C = tri.c;
+
+    if (tri.type === 0) {
+        const P = pointBetween(A, B, 1 / phi);
+        return [
+            { type: 0, a: C, b: P, c: B },
+            { type: 1, a: P, b: C, c: A },
+        ];
+    }
+
+    const Q = pointBetween(B, A, 1 / phi);
+    const Rp = pointBetween(B, C, 1 / phi);
+    return [
+        { type: 1, a: Rp, b: C, c: A },
+        { type: 1, a: Q, b: Rp, c: B },
+        { type: 0, a: Rp, b: Q, c: A },
+    ];
+}
+
+let triangles: Tri[] = [];
+for (let i = 0; i < 10; i++) {
+    const angleB = ((2 * i - 1) * Math.PI) / 10;
+    const angleC = ((2 * i + 1) * Math.PI) / 10;
+    let B: Pt = [cx + R * Math.cos(angleB), cy + R * Math.sin(angleB)];
+    let C: Pt = [cx + R * Math.cos(angleC), cy + R * Math.sin(angleC)];
+    if (i % 2 === 0) [B, C] = [C, B];
+    triangles.push({ type: 0, a: [cx, cy], b: B, c: C });
+}
+
+for (let s = 0; s < SUBDIVISIONS; s++) {
+    triangles = triangles.flatMap(subdivide);
+}
+
+function fmt(n: number): string {
+    return n.toFixed(3);
+}
+
+function pointKey(p: Pt): string {
+    return `${fmt(p[0])},${fmt(p[1])}`;
+}
+
+function edgeKey(p1: Pt, p2: Pt): string {
+    const k1 = pointKey(p1);
+    const k2 = pointKey(p2);
+    return k1 < k2 ? `${k1}|${k2}` : `${k2}|${k1}`;
+}
+
+function diagonalFor(tri: Tri): Diagonal {
+    return { p1: tri.b, p2: tri.c, apex: tri.a, type: tri.type };
+}
+
+function sortedPolygon(points: Pt[]): Pt[] {
+    const mx = points.reduce((sum, p) => sum + p[0], 0) / points.length;
+    const my = points.reduce((sum, p) => sum + p[1], 0) / points.length;
+    return [...points].sort(
+        (p1, p2) =>
+            Math.atan2(p1[1] - my, p1[0] - mx) -
+            Math.atan2(p2[1] - my, p2[0] - mx),
+    );
+}
+
+function inBounds(points: Pt[]): boolean {
+    const xMin = Math.min(...points.map((p) => p[0]));
+    const xMax = Math.max(...points.map((p) => p[0]));
+    const yMin = Math.min(...points.map((p) => p[1]));
+    const yMax = Math.max(...points.map((p) => p[1]));
+    return (
+        xMax > -80 &&
+        xMin < VIEW_W + 80 &&
+        yMax > -80 &&
+        yMin < VIEW_H + 80
+    );
+}
+
+const diagonalMap = new Map<string, Diagonal[]>();
+for (const tri of triangles) {
+    const diagonal = diagonalFor(tri);
+    const key = edgeKey(diagonal.p1, diagonal.p2);
+    const existing = diagonalMap.get(key) ?? [];
+    existing.push(diagonal);
+    diagonalMap.set(key, existing);
+}
+
+const rhombs: Rhomb[] = [];
+for (const [key, pair] of diagonalMap) {
+    if (pair.length !== 2 || pair[0].type !== pair[1].type) continue;
+    const points = sortedPolygon([
+        pair[0].p1,
+        pair[0].apex,
+        pair[0].p2,
+        pair[1].apex,
+    ]);
+    if (!inBounds(points)) continue;
+    rhombs.push({
+        kind: pair[0].type === 0 ? "thin" : "thick",
+        points,
+        key,
+    });
+}
+
+const edgeMap = new Map<string, Edge>();
+for (const rhomb of rhombs) {
+    for (let i = 0; i < rhomb.points.length; i++) {
+        const p1 = rhomb.points[i];
+        const p2 = rhomb.points[(i + 1) % rhomb.points.length];
+        const key = edgeKey(p1, p2);
+        if (!edgeMap.has(key)) {
+            edgeMap.set(key, {
+                x1: parseFloat(p1[0].toFixed(1)),
+                y1: parseFloat(p1[1].toFixed(1)),
+                x2: parseFloat(p2[0].toFixed(1)),
+                y2: parseFloat(p2[1].toFixed(1)),
+            });
+        }
+    }
+}
+
+const thickRhombs = rhombs.filter((r) => r.kind === "thick");
+const thinRhombs = rhombs.filter((r) => r.kind === "thin");
+const edges = Array.from(edgeMap.values());
+
+function polygonPath(points: Pt[]): string {
+    const [first, ...rest] = points;
+    return [
+        `M${first[0].toFixed(1)} ${first[1].toFixed(1)}`,
+        ...rest.map((p) => `L${p[0].toFixed(1)} ${p[1].toFixed(1)}`),
+        "Z",
+    ].join(" ");
+}
+
+const thickPath = thickRhombs.map((r) => polygonPath(r.points)).join(" ");
+const thinPath = thinRhombs.map((r) => polygonPath(r.points)).join(" ");
+const edgePath = edges
+    .map((e) => `M${e.x1} ${e.y1}L${e.x2} ${e.y2}`)
+    .join(" ");
+---
+
+<defs>
+    <linearGradient
+        id="backdrop-penrose-edge-fade"
+        x1="0"
+        y1="0"
+        x2="1"
+        y2="1"
+    >
+        <stop offset="0%" stop-color="white" stop-opacity=".18" />
+        <stop offset="18%" stop-color="white" stop-opacity=".86" />
+        <stop offset="84%" stop-color="white" stop-opacity=".9" />
+        <stop offset="100%" stop-color="white" stop-opacity=".24" />
+    </linearGradient>
+    <mask id="backdrop-penrose-mask">
+        <rect width="1600" height="1000" fill="url(#backdrop-penrose-edge-fade)" />
+    </mask>
+</defs>
+
+<g mask="url(#backdrop-penrose-mask)">
+    <g class="fill-current opacity-[.022] dark:opacity-[.032]">
+        <path d={thickPath} />
+    </g>
+    <g class="fill-current opacity-[.012] dark:opacity-[.022]">
+        <path d={thinPath} />
+    </g>
+    <g
+        stroke="currentColor"
+        stroke-width=".62"
+        fill="none"
+        class="opacity-[.17] dark:opacity-[.24]"
+    >
+        <path d={edgePath} />
+    </g>
+</g>

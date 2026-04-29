@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import IconBadge from "../components/IconBadge.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft))
@@ -11,10 +13,29 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
     month: "short",
     year: "numeric",
 });
+
+const highlights = [
+    {
+        icon: "briefcase",
+        title: "I consult with teams",
+        body: "AI strategy, workflows, and practical implementation.",
+    },
+    {
+        icon: "book-open",
+        title: "I teach privately",
+        body: "One-to-one sessions tailored to your goals.",
+    },
+    {
+        icon: "code",
+        title: "I build small things",
+        body: "Tools, experiments, and ideas that solve real problems.",
+    },
+] as const;
 ---
 
-<BaseLayout>
+<BaseLayout backdrop="penrose">
     <section class="py-16 sm:py-24">
+        <div class="max-w-xl">
         <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
             Hei — I'm Aslak.
         </h1>
@@ -30,6 +51,27 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
                 <a href="/contact">say hello</a>.
             </p>
         </div>
+        </div>
+
+        <ul
+            class="mt-10 grid gap-5 border-t border-border-subtle pt-8 sm:grid-cols-3"
+        >
+            {
+                highlights.map((item) => (
+                    <li class="flex gap-3 sm:block">
+                        <IconBadge icon={item.icon} compact />
+                        <div class="sm:mt-4">
+                            <h2 class="font-semibold tracking-tight">
+                                {item.title}
+                            </h2>
+                            <p class="mt-1 text-sm leading-relaxed text-muted">
+                                {item.body}
+                            </p>
+                        </div>
+                    </li>
+                ))
+            }
+        </ul>
     </section>
 
     {
@@ -48,16 +90,22 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
                         <li class="flex items-baseline justify-between gap-4">
                             <a
                                 href={`/blog/${post.id}`}
-                                class="text-fg no-underline hover:text-accent"
+                                class="inline-flex min-w-0 items-center gap-2 text-fg no-underline hover:text-accent"
                             >
+                                <Icon
+                                    name="file-text"
+                                    class="h-4 w-4 shrink-0 text-accent"
+                                />
                                 {post.data.title}
                             </a>
-                            <time
-                                datetime={post.data.date.toISOString()}
-                                class="shrink-0 text-sm text-muted tabular-nums"
+                            <span
+                                class="inline-flex shrink-0 items-center gap-1.5 text-sm text-muted tabular-nums"
                             >
-                                {dateFmt.format(post.data.date)}
-                            </time>
+                                <Icon name="calendar" class="h-3.5 w-3.5" />
+                                <time datetime={post.data.date.toISOString()}>
+                                    {dateFmt.format(post.data.date)}
+                                </time>
+                            </span>
                         </li>
                     ))}
                 </ul>

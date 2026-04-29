@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import HatTile from "../components/HatTile.astro";
 ---
 
 <BaseLayout title="Not found" description="The page you're looking for doesn't exist.">
@@ -13,8 +15,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <p class="mt-4 text-muted">
             The page you're looking for has moved, been renamed, or never existed.
         </p>
-        <p class="mt-8">
-            <a href="/">← Back to the front page</a>
+        <HatTile />
+        <p class="mt-12">
+            <a href="/" class="inline-flex items-center gap-2">
+                <Icon name="arrow-left" class="h-4 w-4" />
+                Back to the front page
+            </a>
         </p>
     </section>
 </BaseLayout>
