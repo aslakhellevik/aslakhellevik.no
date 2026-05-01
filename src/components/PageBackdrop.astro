@@ -15,8 +15,8 @@ const isSoft = variant === "contour-soft";
 // appearance at all aspect ratios). Stops are calibrated to match the
 // visible behavior of the previous SVG-based glow on a wide PC screen.
 const glow = isSoft
-    ? { peak: 7, mid: 3, low: 0.7 }
-    : { peak: 8, mid: 5, low: 1 };
+    ? { peak: 9, mid: 3, low: 0.7 }
+    : { peak: 10, mid: 5, low: 1 };
 
 const glowStops =
     `color-mix(in srgb, var(--accent) ${glow.peak}%, transparent) 0%, ` +
