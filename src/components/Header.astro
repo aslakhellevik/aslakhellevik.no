@@ -235,6 +235,19 @@ const starRhombi = Array.from({ length: 5 }, (_, i) => {
         const searchModal = document.querySelector("[data-search-modal]");
         const searchTriggers = document.querySelectorAll("[data-search-open]");
 
+        function setBackgroundInert(inert) {
+            const targets = [
+                document.querySelector("header"),
+                document.querySelector("main"),
+                document.querySelector("footer"),
+            ];
+            for (const el of targets) {
+                if (!el) continue;
+                if (inert) el.setAttribute("inert", "");
+                else el.removeAttribute("inert");
+            }
+        }
+
         function setDrawerOpen(open) {
             if (!drawer || !menuBtn) return;
             drawer.hidden = !open;
@@ -316,6 +329,7 @@ const starRhombi = Array.from({ length: 5 }, (_, i) => {
             setDrawerOpen(false);
             searchModal.hidden = false;
             document.body.style.overflow = "hidden";
+            setBackgroundInert(true);
             await ensurePagefind();
             focusSearchInput();
         }
@@ -323,6 +337,7 @@ const starRhombi = Array.from({ length: 5 }, (_, i) => {
         function closeSearch() {
             if (!searchModal) return;
             searchModal.hidden = true;
+            setBackgroundInert(false);
             if (drawer?.hidden !== false) document.body.style.overflow = "";
         }
 
