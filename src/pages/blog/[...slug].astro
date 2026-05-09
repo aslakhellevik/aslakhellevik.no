@@ -58,18 +58,6 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
                         {readingMinutes} min read
                     </span>
                 )}
-                {
-                    post.data.tags && post.data.tags.length > 0 && (
-                        <ul class="flex flex-wrap gap-2">
-                            {post.data.tags.map((tag) => (
-                                <li class="inline-flex items-center gap-1.5">
-                                    <Icon name="tag" class="h-3.5 w-3.5" />
-                                    {tag}
-                                </li>
-                            ))}
-                        </ul>
-                    )
-                }
             </div>
         </header>
 
