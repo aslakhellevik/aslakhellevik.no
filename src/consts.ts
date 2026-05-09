@@ -59,12 +59,12 @@ export type EducationEntry = {
 export const EDUCATION: EducationEntry[] = [
     {
         institution: "University of Oslo",
-        degree: "MSc, Stochastic Modelling, Statistics and Risk Analysis",
+        degree: "Masters in Statistics",
         period: "2024 – 2026",
     },
     {
         institution: "University of Oslo",
-        degree: "BSc, Honours Programme (mathematics with informatics)",
+        degree: "Bachelors in Mathematics with Informatics (Honours)",
         period: "2021 – 2024",
     },
     {
