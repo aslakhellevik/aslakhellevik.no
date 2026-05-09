@@ -25,8 +25,7 @@ const starRhombi = Array.from({ length: 5 }, (_, i) => {
 ---
 
 <header
-    class="border-b border-border-subtle relative"
-    style="background-color: color-mix(in srgb, var(--accent) 18%, var(--bg))"
+    class="border-b border-border-subtle relative bg-bg"
 >
     <div class="mx-auto max-w-4xl px-4 sm:px-6 py-5 flex items-center justify-between gap-4">
         <a
@@ -86,7 +85,7 @@ const starRhombi = Array.from({ length: 5 }, (_, i) => {
                             "no-underline transition-colors",
                             isActive(link.href)
                                 ? "text-accent"
-                                : "text-muted hover:text-fg",
+                                : "text-muted hover:text-accent",
                         ]}
                     >
                         {link.label}
