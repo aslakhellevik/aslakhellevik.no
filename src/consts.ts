@@ -15,7 +15,7 @@ export const NAV_LINKS = [
 
 export const SOCIAL_LINKS = {
     email: "ah@aslakhellevik.no",
-    github: "https://github.com/AslakH",
+    github: "https://github.com/aslakhellevik",
     linkedin: "https://www.linkedin.com/in/aslakhellevik/",
     substack: null as string | null,
 };

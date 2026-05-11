@@ -2,7 +2,7 @@
 title: Personal webpage
 description: This site — Astro + Tailwind, statically generated, deployed to Cloudflare. Hand-coded with Claude Code as a pair programmer.
 year: "2026"
-repo: https://github.com/AslakH/aslakhellevik.no
+repo: https://github.com/aslakhellevik/aslakhellevik.no
 tags: [astro, tailwind, cloudflare, design]
 featured: true
 ---

@@ -7,13 +7,40 @@ import { SOCIAL_LINKS } from "../consts";
 const services = [
     {
         icon: "briefcase",
-        title: "AI consulting",
-        body: "Working with teams and individuals on practical applications of modern AI — from scoping what's feasible to hands-on implementation. Short engagements and longer partnerships both fine.",
+        title: "AI workshops for teams",
+        body: "Half-day workshops blending presentation and hands-on practice: practical methods for using LLMs reliably and effectively in everyday work — prompt strategies, quality control, and concrete templates tailored to your team's tasks.",
+        price: "From 18,000 NOK",
+        format: "Half-day (4h)",
+        delivery: "Oslo or remote",
+        audience: "Small teams",
+    },
+    {
+        icon: "graduation-cap",
+        title: "Mathematics & writing tutoring",
+        body: "One-on-one tutoring in mathematics and writing (English or Norwegian) for clear, deep progress. Conceptual understanding over rote practice; individual plans by level and goal.",
+        price: "From 1,900 NOK / hour",
+        format: "90 min sessions",
+        delivery: "Oslo, in person",
+        audience: "Ambitious pupils & students",
+        badge: "Limited capacity",
     },
     {
         icon: "book-open",
-        title: "Private teaching",
-        body: "One-on-one or small-group sessions for people wanting to go deeper on AI tools, build their own workflows, or learn to ship with modern stacks. Tailored to your goals.",
+        title: "Philosophical conversation",
+        body: "Structured one-on-one conversation for reflection, argumentation, and conceptual clarity on hard problems — Socratic dialogue with direction, surfacing assumptions, sharpening decisions.",
+        price: "From 1,700 NOK / 90 min",
+        format: "90 minutes",
+        delivery: "Oslo, in person",
+        audience: "Adults & professionals",
+    },
+    {
+        icon: "code",
+        title: "Guided philosophy café",
+        body: "Facilitated group conversation for teams or communities who want to develop thinking, conversation culture, and analytical precision. Pre-defined theme and goal, safe and structured discussion, written summary with next steps.",
+        price: "From 9,000 NOK / session",
+        format: "60–120 minutes",
+        delivery: "Oslo, in person",
+        audience: "Groups (adults, professionals)",
     },
 ] as const;
 ---
@@ -35,18 +62,47 @@ const services = [
                         <div class="flex items-start gap-4 sm:gap-5">
                             <IconBadge icon={s.icon} compact class="mt-0.5" />
                             <div class="min-w-0">
-                                <h2 class="text-xl font-semibold tracking-tight">
-                                    {s.title}
-                                </h2>
+                                <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                                    <h2 class="text-xl font-semibold tracking-tight">
+                                        {s.title}
+                                    </h2>
+                                    {"badge" in s && s.badge && (
+                                        <span class="text-xs uppercase tracking-widest text-accent">
+                                            {s.badge}
+                                        </span>
+                                    )}
+                                </div>
                                 <p class="mt-2 max-w-3xl text-muted leading-relaxed">
                                     {s.body}
                                 </p>
+                                <dl class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted">
+                                    <div class="flex items-baseline gap-1.5">
+                                        <dt class="sr-only">Price</dt>
+                                        <dd class="font-medium text-fg">{s.price}</dd>
+                                    </div>
+                                    <div class="flex items-baseline gap-1.5">
+                                        <dt class="sr-only">Format</dt>
+                                        <dd>{s.format}</dd>
+                                    </div>
+                                    <div class="flex items-baseline gap-1.5">
+                                        <dt class="sr-only">Delivery</dt>
+                                        <dd>{s.delivery}</dd>
+                                    </div>
+                                    <div class="flex items-baseline gap-1.5">
+                                        <dt class="sr-only">Audience</dt>
+                                        <dd>{s.audience}</dd>
+                                    </div>
+                                </dl>
                             </div>
                         </div>
                     </li>
                 ))
             }
         </ul>
+
+        <p class="mt-8 text-sm text-muted">
+            Prices are from-prices in Norwegian kroner. Final scope and quote are agreed after an initial conversation.
+        </p>
 
         <div class="mt-10">
             <a
