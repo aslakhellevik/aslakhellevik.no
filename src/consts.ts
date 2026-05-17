@@ -2,7 +2,7 @@ export const SITE = {
     name: "Aslak Hellevik",
     url: "https://aslakhellevik.no",
     description:
-        "Personal site of Aslak Hellevik — writing, projects, and AI consulting.",
+        "Personal site of Aslak Hellevik — statistician in practice, philosopher by heart.",
 };
 
 export const NAV_LINKS = [

@@ -17,21 +17,21 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
 const highlights = [
     {
         icon: "file-text",
-        title: "I blog",
+        title: "Blog",
         href: "/blog",
         body: "Understanding and modelling; philosophy, maths, psychology, economics, and random observations about the world.",
     },
     {
         icon: "briefcase",
-        title: "I solve",
+        title: "Services",
         href: "/services",
         body: "Statistical analysis, research, AI literacy, workflow automation. Wiring reality into math and code.",
     },
     {
         icon: "code",
-        title: "I build",
+        title: "Projects",
         href: "/projects",
-        body: "That is, I'm Claude's build instructor, when I want something built.",
+        body: "Using LLMs and other tools to bring ideas to life.",
     },
 ] as const;
 ---
@@ -61,12 +61,15 @@ const highlights = [
                     Climb the PhD mountain (convince me this is a good idea)
                 </li>
                 <li>
-                    Play squash and Agricola while waiting for Mythos to
-                    earn me UBI
+                    Play squash and <a
+                        href="https://boardgamegeek.com/boardgame/200680/agricola-revised-edition"
+                        rel="noopener">Agricola</a> while waiting for <a
+                        href="https://red.anthropic.com/2026/mythos-preview/"
+                        rel="noopener">Mythos</a> to earn me UBI
                 </li>
             </ul>
             <p>
-                If any of my interests sound relevant, please
+                If any of this sounds relevant, please
                 <a href="/contact">say hei</a>.
             </p>
         </div>
