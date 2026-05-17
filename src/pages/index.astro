@@ -16,19 +16,22 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
 
 const highlights = [
     {
-        icon: "briefcase",
-        title: "I consult with teams",
-        body: "AI strategy, workflows, and practical implementation.",
+        icon: "file-text",
+        title: "I blog",
+        href: "/blog",
+        body: "Understanding and modelling; philosophy, maths, psychology, economics, and random observations about the world.",
     },
     {
-        icon: "book-open",
-        title: "I teach privately",
-        body: "One-to-one sessions tailored to your goals.",
+        icon: "briefcase",
+        title: "I solve",
+        href: "/services",
+        body: "Statistical analysis, research, AI literacy, workflow automation. Wiring reality into math and code.",
     },
     {
         icon: "code",
-        title: "I build small things",
-        body: "Tools, experiments, and ideas that solve real problems.",
+        title: "I build",
+        href: "/projects",
+        body: "That is, I'm Claude's build instructor, when I want something built.",
     },
 ] as const;
 ---
@@ -45,11 +48,24 @@ const highlights = [
                 digging into the how and why of understanding and modelling.
                 This year I am working part-time at SSB modelling Norwegian
                 tax and family policy, while exploring what to do next.
+                Current ideas:
             </p>
+            <ul class="list-disc pl-6 space-y-1 marker:text-muted/60">
+                <li>
+                    Establish ENK, try my hand at consulting (in progress,
+                    see <a href="/services">services</a>)
+                </li>
+                <li>Write a blog (just started)</li>
+                <li>Build with Claude</li>
+                <li>
+                    Climb the PhD mountain (convince me this is a good idea)
+                </li>
+                <li>
+                    Play squash and Agricola while waiting for Mythos to
+                    earn me UBI
+                </li>
+            </ul>
             <p>
-                Should I expand my <a href="/blog">blog</a>, build with
-                Claude or sacrifice myself on the cross of a PhD? Or play
-                squash and Agricola while waiting for Mythos to earn me UBI?
                 If any of my interests sound relevant, please
                 <a href="/contact">say hei</a>.
             </p>
@@ -65,7 +81,12 @@ const highlights = [
                         <IconBadge icon={item.icon} compact />
                         <div class="sm:mt-4">
                             <h2 class="font-semibold tracking-tight">
-                                {item.title}
+                                <a
+                                    href={item.href}
+                                    class="text-fg no-underline hover:text-accent"
+                                >
+                                    {item.title}
+                                </a>
                             </h2>
                             <p class="mt-1 text-sm leading-relaxed text-muted">
                                 {item.body}
