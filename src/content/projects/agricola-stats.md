@@ -1,7 +1,7 @@
 ---
 title: Agricola card statistics
-description: A phone-first PWA for looking up Agricola cards, switching between data snapshots, and reading per-card statistics.
-year: "2026"
+description: A progressive web app for looking up card statistics in my favourite board game, Agricola.
+date: 2026-02-23
 link: https://agri-stat-displayer.aslakhellevik2002.workers.dev
 repo: https://github.com/aslakhellevik/agri_stat_displayer
 tags: [react, typescript, vite, pwa, board-games]

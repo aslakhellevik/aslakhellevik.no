@@ -10,10 +10,9 @@ import { SOCIAL_LINKS } from "../consts";
             Contact
         </h1>
         <p class="mt-6 text-muted leading-relaxed">
-            I'd genuinely like to hear from you — about a project, a question,
-            something I wrote, or anything else. The best way to reach me is
-            email; I read everything and reply to most things within a few
-            days.
+            If you have thoughts about my writing, a project, or anything else,
+            the best way to reach me is email. I'd genuinely like to hear from
+            you, and I reply to most things within a few days.
         </p>
 
         <div class="mt-10 flex items-center gap-2">
@@ -28,14 +27,19 @@ import { SOCIAL_LINKS } from "../consts";
 
         <ul class="mt-10 space-y-3 text-muted">
             <li class="flex gap-2">
+                <Icon name="book-open" class="mt-1 h-4 w-4 shrink-0 text-accent" />
+                <a href={SOCIAL_LINKS.goodreads} rel="me">Goodreads</a> — have
+                we read the same books?
+            </li>
+            <li class="flex gap-2">
                 <Icon name="github" class="mt-1 h-4 w-4 shrink-0 text-accent" />
                 <a href={SOCIAL_LINKS.github} rel="me">GitHub</a> — code and
                 side projects.
             </li>
             <li class="flex gap-2">
                 <Icon name="linkedin" class="mt-1 h-4 w-4 shrink-0 text-accent" />
-                <a href={SOCIAL_LINKS.linkedin} rel="me">LinkedIn</a> — more
-                formal stuff.
+                <a href={SOCIAL_LINKS.linkedin} rel="me">LinkedIn</a> — if you
+                feel professional.
             </li>
         </ul>
     </section>

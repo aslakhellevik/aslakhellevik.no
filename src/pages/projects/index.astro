@@ -5,7 +5,12 @@ import { getCollection } from "astro:content";
 
 const projects = (
     await getCollection("projects", ({ data }) => !data.draft)
-).sort((a, b) => b.data.year.localeCompare(a.data.year));
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const monthYear = new Intl.DateTimeFormat("en-GB", {
+    month: "long",
+    year: "numeric",
+});
 ---
 
 <BaseLayout title="Projects" backdrop="penrose">
@@ -13,7 +18,12 @@ const projects = (
         <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
             Projects
         </h1>
-        <p class="mt-4 text-muted">Recent projects, built with AI.</p>
+        <p class="mt-4 text-muted leading-relaxed">
+            Recent projects. Main workflow: specify every aspect of an idea in
+            detail, iron out uncertainties through reflection and conversation
+            with Claude, then work out an agent flow. Let the summoning begin,
+            and spend a few hours tweaking what comes back.
+        </p>
 
         {
             projects.length === 0 ? (
@@ -35,7 +45,9 @@ const projects = (
                                 </h2>
                                 <span class="inline-flex shrink-0 items-center gap-1.5 text-sm text-muted tabular-nums">
                                     <Icon name="calendar" class="h-3.5 w-3.5" />
-                                    {p.data.year}
+                                    <time datetime={p.data.date.toISOString()}>
+                                        {monthYear.format(p.data.date)}
+                                    </time>
                                 </span>
                             </div>
                             <p class="mt-2 text-muted leading-relaxed">

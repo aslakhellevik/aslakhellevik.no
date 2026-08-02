@@ -2,7 +2,7 @@ export const SITE = {
     name: "Aslak Hellevik",
     url: "https://aslakhellevik.no",
     description:
-        "Personal site of Aslak Hellevik — statistician in practice, philosopher by heart.",
+        "Personal site of Aslak Hellevik — statistician in practice, philosopher at heart.",
 };
 
 export const NAV_LINKS = [
@@ -16,6 +16,7 @@ export const NAV_LINKS = [
 export const SOCIAL_LINKS = {
     email: "ah@aslakhellevik.no",
     github: "https://github.com/aslakhellevik",
+    goodreads: "https://www.goodreads.com/user/show/141430103-aslak-hellevik",
     linkedin: "https://www.linkedin.com/in/aslakhellevik/",
     substack: null as string | null,
 };

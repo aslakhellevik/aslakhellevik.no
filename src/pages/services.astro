@@ -6,53 +6,36 @@ import { SOCIAL_LINKS } from "../consts";
 
 const services = [
     {
-        icon: "briefcase",
-        title: "AI workshops for teams",
-        body: "Half-day workshops blending presentation and hands-on practice: practical methods for using LLMs reliably and effectively in everyday work — prompt strategies, quality control, and concrete templates tailored to your team's tasks.",
-        price: "From 18,000 NOK",
-        format: "Half-day (4h)",
-        delivery: "Oslo or remote",
-        audience: "Small teams",
+        icon: "cube",
+        title: "Statistics & modelling",
+        body: "Figuring out which models are sensible for a problem, with a focus on assumptions. Implementing them and interpreting the results honestly. Experience with causal inference and microsimulation, structural models, psychometrics, and econometrics.",
     },
     {
-        icon: "graduation-cap",
-        title: "Mathematics & writing tutoring",
-        body: "One-on-one tutoring in mathematics and writing (English or Norwegian) for clear, deep progress. Conceptual understanding over rote practice; individual plans by level and goal.",
-        price: "From 1,900 NOK / hour",
-        format: "90 min sessions",
-        delivery: "Oslo, in person",
-        audience: "Ambitious pupils & students",
-        badge: "Limited capacity",
+        icon: "briefcase",
+        title: "AI in practice",
+        body: "AI literacy, from everyday tasks to advanced tooling: workshops covering prompt strategies and quality control, or automation built for a specific problem in your workflow. Including an honest evaluation of whether automation pays off in your area at all.",
     },
     {
         icon: "book-open",
         title: "Philosophical conversation",
-        body: "Structured one-on-one conversation for reflection, argumentation, and conceptual clarity on hard problems — Socratic dialogue with direction, surfacing assumptions, sharpening decisions.",
-        price: "From 1,700 NOK / 90 min",
-        format: "90 minutes",
-        delivery: "Oslo, in person",
-        audience: "Adults & professionals",
-    },
-    {
-        icon: "code",
-        title: "Guided philosophy café",
-        body: "Facilitated group conversation for teams or communities who want to develop thinking, conversation culture, and analytical precision. Pre-defined theme and goal, safe and structured discussion, written summary with next steps.",
-        price: "From 9,000 NOK / session",
-        format: "60–120 minutes",
-        delivery: "Oslo, in person",
-        audience: "Groups (adults, professionals)",
+        body: "Structured dialogue around a pre-agreed theme, one-on-one or for a group. Examining assumptions and arguments, with conceptual clarity as the goal.",
     },
 ] as const;
 ---
 
-<BaseLayout title="Services" backdrop="penrose">
+<BaseLayout
+    title="Services"
+    description="Consulting on statistics and modelling, practical AI use, and philosophical conversation — Oslo or remote."
+    backdrop="penrose"
+>
     <section class="py-16">
         <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
             Services
         </h1>
         <p class="mt-4 text-muted leading-relaxed">
-            Ways I work with people. If something here fits,
-            <a href="/contact">get in touch</a>.
+            I take on work in statistics, modelling, and the practical use of
+            AI. If you are facing a statistical problem, or something below
+            sounds relevant, <a href="/contact">get in touch</a>.
         </p>
 
         <ul class="mt-12 divide-y divide-border-subtle border-y border-border-subtle">
@@ -62,37 +45,12 @@ const services = [
                         <div class="flex items-start gap-4 sm:gap-5">
                             <IconBadge icon={s.icon} compact class="mt-0.5" />
                             <div class="min-w-0">
-                                <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                                    <h2 class="text-xl font-semibold tracking-tight">
-                                        {s.title}
-                                    </h2>
-                                    {"badge" in s && s.badge && (
-                                        <span class="text-xs uppercase tracking-widest text-accent">
-                                            {s.badge}
-                                        </span>
-                                    )}
-                                </div>
+                                <h2 class="text-xl font-semibold tracking-tight">
+                                    {s.title}
+                                </h2>
                                 <p class="mt-2 max-w-3xl text-muted leading-relaxed">
                                     {s.body}
                                 </p>
-                                <dl class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-muted">
-                                    <div class="flex items-baseline gap-1.5">
-                                        <dt class="sr-only">Price</dt>
-                                        <dd class="font-medium text-fg">{s.price}</dd>
-                                    </div>
-                                    <div class="flex items-baseline gap-1.5">
-                                        <dt class="sr-only">Format</dt>
-                                        <dd>{s.format}</dd>
-                                    </div>
-                                    <div class="flex items-baseline gap-1.5">
-                                        <dt class="sr-only">Delivery</dt>
-                                        <dd>{s.delivery}</dd>
-                                    </div>
-                                    <div class="flex items-baseline gap-1.5">
-                                        <dt class="sr-only">Audience</dt>
-                                        <dd>{s.audience}</dd>
-                                    </div>
-                                </dl>
                             </div>
                         </div>
                     </li>
@@ -101,7 +59,9 @@ const services = [
         </ul>
 
         <p class="mt-8 text-sm text-muted">
-            Prices are from-prices in Norwegian kroner. Final scope and quote are agreed after an initial conversation.
+            The first 30 minutes are free, and used to work out feasibility,
+            scope, and price. Oslo or remote; English or Norwegian. I usually
+            reply within a few days.
         </p>
 
         <div class="mt-10">
@@ -112,9 +72,6 @@ const services = [
                 <Icon name="mail" class="h-4 w-4" />
                 Start a conversation →
             </a>
-            <p class="mt-3 text-sm text-muted">
-                Usually reply within a few days; first call is 30 min, free.
-            </p>
         </div>
     </section>
 </BaseLayout>

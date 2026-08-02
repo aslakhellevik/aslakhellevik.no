@@ -1,10 +1,11 @@
 ---
 title: SimNorge — practice environment for utdanningsvalg
 description: A browser full of clearly-fake Norwegian public services where lower-secondary pupils practise paying a bill with KID, logging in with an electronic ID, booking a doctor, and applying to upper secondary.
-year: "2026"
+date: 2026-08-01
 link: https://udv-tool.aslakhellevik2002.workers.dev
 tags: [react, typescript, vite, education, norwegian]
 featured: false
+draft: true
 ---
 
 Norwegian pupils leave ungdomsskolen able to discuss the national budget but
