@@ -136,7 +136,7 @@ Inline, amber, underlined. Always visible underline (no "underline on hover" —
 `text-sm font-medium uppercase tracking-widest text-muted`. For secondary section headings (Work, Education, Recent writing). Distinct from primary `<h1>`/`<h2>` typography.
 
 ### Divide list
-`<ul class="divide-y divide-border-subtle">` with each `<li>` a flex row: primary label left, meta (role · period, description · year) right. Stacks vertically on mobile. Used on about page for Work, Projects, Education.
+`<ul class="divide-y divide-border-subtle">` with each `<li>` a flex row: primary label left, meta (role · period, description · date) right. Stacks vertically on mobile. Used on about page for Work, Projects, Education.
 
 ### Article container
 `<article class="py-12 mx-auto max-w-[65ch]">` wraps post bodies. Inner body gets class `.article` which applies the editorial styles (serif, line-height, margins between elements).

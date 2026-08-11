@@ -75,7 +75,7 @@ draft: false
 ---
 title: Project title
 description: One-line description.
-year: "2026"
+date: 2026-02-23
 link: https://example.com  # optional
 repo: https://github.com/...  # optional
 tags: [tag1]
@@ -84,7 +84,9 @@ draft: false
 ---
 ```
 
-Drafts (`draft: true`) are excluded from the build.
+`date` is a real date, not a year string — projects sort by it (newest first) and
+render as "February 2026". Drafts (`draft: true`) are excluded from the build.
+`featured` is declared in the schema but not yet read by any page.
 
 ## Deployment
 

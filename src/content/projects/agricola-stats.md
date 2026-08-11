@@ -8,7 +8,7 @@ tags: [react, typescript, vite, pwa, board-games]
 featured: false
 ---
 
-Agricola is a strategy board game about building a farm. I have been playing it semi-regularly for the last few years, and also enjoy participating in tournaments hosted by the community. It has a large set of cards that are essential to play, and being able to view card statistics easily is helpful — especially when trying to improve. So I made one. The end product is a small installable web app which displays card information along with useful statistics. It is built for phone use, but also works well on a laptop.
+Agricola is a strategy board game about building a farm. I have been playing it semi-regularly for the last few years, and also enjoy participating in tournaments hosted by the community. It has a large set of cards that are essential to play, and being able to view card statistics easily is helpful — especially when trying to improve. So I made one: a small installable web app which displays card information along with useful statistics. It is built for phone use, but also works well on a laptop.
 
 ## Features
 
