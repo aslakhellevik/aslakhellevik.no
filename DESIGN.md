@@ -8,8 +8,8 @@ Portable design system specification for Aslak Hellevik's personal site. Written
 
 A **hybrid minimal-modern / editorial** aesthetic for a personal site combining consulting, projects, and long-form writing. Two related modes coexist:
 
-- **Default mode** — landing, about, projects index, services, contact, blog index. Minimal-modern: text-forward, generous whitespace, restrained typography, warm neutral palette with a single amber accent. Reads as contemporary and considered without shouting.
-- **Article mode** — individual blog posts and project case studies. Editorial: serif body, narrower reading column (~65ch), larger base size, generous line-height. Reads as a real magazine article, not product marketing.
+- **Default mode** — landing, about, projects index, services, contact, writing index. Minimal-modern: text-forward, generous whitespace, restrained typography, warm neutral palette with a single amber accent. Reads as contemporary and considered without shouting.
+- **Article mode** — individual writing posts and project case studies. Editorial: serif body, narrower reading column (~65ch), larger base size, generous line-height. Reads as a real magazine article, not product marketing.
 
 Reference points: leerob.io, brianlovin.com (minimal-modern); theshamblog.com, waitbutwhy.com (editorial).
 
@@ -130,7 +130,7 @@ Mirror of header: `border-t`, max-w-4xl. Copyright left, social links right.
 Inline, amber, underlined. Always visible underline (no "underline on hover" — reduces affordance). No pill/button styling unless it's a genuine CTA.
 
 ### Card / "surface box"
-`bg-surface rounded-lg p-7`. **No border**, no shadow. Used for discrete list items where visual separation helps scannability (services blocks, projects index cards). Do not use on landing, about, blog bodies.
+`bg-surface rounded-lg p-7`. **No border**, no shadow. Used for discrete list items where visual separation helps scannability (services blocks, projects index cards). Do not use on landing, about, writing bodies.
 
 ### Section eyebrow
 `text-sm font-medium uppercase tracking-widest text-muted`. For secondary section headings (Work, Education, Recent writing). Distinct from primary `<h1>`/`<h2>` typography.
@@ -161,8 +161,8 @@ Small square chip with `bg-accent/10` ring wrapping an `Icon`. Used on home high
 
 | Name     | Class            | Width       | Used for                                      |
 | -------- | ---------------- | ----------- | --------------------------------------------- |
-| Default  | `max-w-2xl`      | 672px       | Landing, about (narrow), blog index, services, contact, projects index |
-| Wide     | `max-w-4xl`      | 896px       | Header, footer, about (photo + bio grid), project detail, blog post detail |
+| Default  | `max-w-2xl`      | 672px       | Landing, about (narrow), writing index, services, contact, projects index |
+| Wide     | `max-w-4xl`      | 896px       | Header, footer, about (photo + bio grid), project detail, writing post detail |
 | Reading  | `max-w-[65ch]`   | ~570px      | Article prose body (inside wide container)    |
 
 ### Spacing
@@ -203,8 +203,8 @@ A page-wide fixed SVG backdrop sits behind all content, providing identity textu
 
 | Motif | Used on | Visual |
 | --- | --- | --- |
-| `contour` *(default)* | About, blog index, contact, 404 | Topographic-style horizontal contour lines, hand-generated wavy paths, low opacity. Reads as personal / biographical / written. |
-| `contour-soft` | Blog post | Same contour motif with heavily reduced glow/line opacity for reading comfort under long-form prose. Not a separate visual motif — pure intensity tuning. |
+| `contour` *(default)* | About, writing index, contact, 404 | Topographic-style horizontal contour lines, hand-generated wavy paths, low opacity. Reads as personal / biographical / written. |
+| `contour-soft` | Writing post | Same contour motif with heavily reduced glow/line opacity for reading comfort under long-form prose. Not a separate visual motif — pure intensity tuning. |
 | `penrose` | Home, projects index, project detail, services | Penrose P3 rhombus tiling generated via Robinson-triangle deflation (5 iterations from a 10-triangle sun seed at center). Reads as technical / mathematical / structured. |
 | `none` | *(unused — escape hatch)* | No backdrop at all. Reserve for future surfaces where the backdrop interferes (e.g. an embedded data viz, a deliberately bare page). Don't reach for it without a concrete reason. |
 
@@ -270,7 +270,7 @@ When extending the system or generating new UI, these prompts produce consistent
 
 - *"Add a [new page / component] consistent with DESIGN.md. Use the existing color tokens (`bg`, `fg`, `muted`, `subtle`, `accent`, `surface`, `border-subtle`) — never hardcode a color. Inter for UI chrome, Newsreader for article prose. No shadows, no secondary accents. Prefer hairline dividers over cards."*
 
-- *"For blog-post-style content: wrap body in `<article class="py-12 mx-auto max-w-[65ch]">`, apply `.article` class to the prose container. Serif h1, sans h2/h3/h4."*
+- *"For writing-post-style content: wrap body in `<article class="py-12 mx-auto max-w-[65ch]">`, apply `.article` class to the prose container. Serif h1, sans h2/h3/h4."*
 
 - *"For card-like list items (services, projects): use `bg-surface rounded-lg p-7`. No border, no shadow."*
 

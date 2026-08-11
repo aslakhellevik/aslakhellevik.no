@@ -22,7 +22,7 @@ const monthYear = new Intl.DateTimeFormat("en-GB", {
 });
 ---
 
-<BaseLayout title={project.data.title} description={project.data.description} wide backdrop="penrose">
+<BaseLayout title={project.data.title} description={project.data.description} wide backdrop="penrose" ogType="article">
     <article class="py-12 mx-auto max-w-[65ch]">
         <div class="mb-10">
             <a href="/projects" class="inline-flex items-center gap-2 text-sm no-underline text-muted hover:text-accent">
@@ -54,7 +54,7 @@ const monthYear = new Intl.DateTimeFormat("en-GB", {
                         class="inline-flex items-center gap-1.5"
                     >
                         <Icon name="external-link" class="h-3.5 w-3.5" />
-                        Visit ↗
+                        Visit
                     </a>
                 )}
                 {project.data.repo && (
@@ -63,7 +63,7 @@ const monthYear = new Intl.DateTimeFormat("en-GB", {
                         class="inline-flex items-center gap-1.5"
                     >
                         <Icon name="code" class="h-3.5 w-3.5" />
-                        Code ↗
+                        Code
                     </a>
                 )}
             </div>

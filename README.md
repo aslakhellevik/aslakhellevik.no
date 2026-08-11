@@ -21,10 +21,10 @@ src/
 │   ├── contact.astro
 │   ├── services.astro
 │   ├── 404.astro
-│   ├── blog/              # blog index + [...slug].astro
+│   ├── writing/           # writing index + [...slug].astro
 │   └── projects/          # projects index + [...slug].astro
 ├── content/               # Astro Content Collections
-│   ├── blog/              # *.md posts
+│   ├── writing/           # *.md posts
 │   └── projects/          # *.md case studies
 ├── layouts/
 │   └── BaseLayout.astro   # shared <html>, header, footer, page backdrop
@@ -57,7 +57,7 @@ When extending the design, read `DESIGN.md` first.
 
 ## Adding content
 
-**Blog post:** create `src/content/blog/<slug>.md` with frontmatter:
+**Writing post:** create `src/content/writing/<slug>.md` with frontmatter:
 
 ```yaml
 ---
@@ -95,6 +95,13 @@ Static site, ships from `./dist/`. Pagefind search index is generated as part of
 ## Operational context
 
 `CONTEXT.md` (gitignored) holds the project goals, infrastructure state, and pre-launch checklist. Read it before launch-adjacent work.
+
+## Licence
+
+Split, deliberately — see [LICENSE](LICENSE):
+
+- **Code and design** (`src/` except `src/content/`, `scripts/`, config, `DESIGN.md`) — MIT. Borrow freely.
+- **Writing and images** (`src/content/`, the page prose, `public/portrait.jpg`, the icons) — all rights reserved.
 
 ## Stack
 

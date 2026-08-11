@@ -4,7 +4,7 @@ import type { APIContext } from "astro";
 import { SITE } from "../consts";
 
 export async function GET(context: APIContext) {
-    const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+    const posts = (await getCollection("writing", ({ data }) => !data.draft)).sort(
         (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
     );
 
@@ -16,7 +16,7 @@ export async function GET(context: APIContext) {
             title: post.data.title,
             description: post.data.description,
             pubDate: post.data.date,
-            link: `/blog/${post.id}/`,
+            link: `/writing/${post.id}/`,
         })),
     });
 }

@@ -4,7 +4,7 @@ import Icon from "../components/Icon.astro";
 import IconBadge from "../components/IconBadge.astro";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection("blog", ({ data }) => !data.draft))
+const posts = (await getCollection("writing", ({ data }) => !data.draft))
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
     .slice(0, 3);
 
@@ -17,8 +17,8 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
 const highlights = [
     {
         icon: "file-text",
-        title: "Blog",
-        href: "/blog",
+        title: "Writing",
+        href: "/writing",
         body: "In progress.",
     },
     {
@@ -110,7 +110,7 @@ const highlights = [
                     <h2 class="text-sm font-medium uppercase tracking-widest text-muted">
                         Recent writing
                     </h2>
-                    <a href="/blog" class="text-sm no-underline hover:underline">
+                    <a href="/writing" class="text-sm no-underline hover:underline">
                         All posts →
                     </a>
                 </div>
@@ -118,7 +118,7 @@ const highlights = [
                     {posts.map((post) => (
                         <li class="flex items-baseline justify-between gap-4">
                             <a
-                                href={`/blog/${post.id}`}
+                                href={`/writing/${post.id}`}
                                 class="inline-flex min-w-0 items-center gap-2 text-fg no-underline hover:text-accent"
                             >
                                 <Icon

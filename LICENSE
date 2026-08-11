@@ -1,0 +1,64 @@
+Copyright (c) 2026 Aslak Hellevik
+
+This repository contains two kinds of material, under two different terms.
+Read section 1 if you want to reuse the code or the design; read section 2
+before reusing anything written or photographed.
+
+
+================================================================================
+1. SOURCE CODE AND DESIGN — MIT License
+================================================================================
+
+The MIT License below applies to the source code and design system of this
+site. Concretely, that is:
+
+  - everything in `src/` EXCEPT `src/content/`
+  - `scripts/`
+  - `astro.config.mjs`, `wrangler.jsonc`, `package.json`, `tsconfig.json`
+  - `DESIGN.md` and `README.md`
+
+Layout, components, CSS, the backdrop motifs, the design tokens and the design
+specification are all covered. Take them, change them, ship them. Attribution
+is appreciated but not required.
+
+--------------------------------------------------------------------------------
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+================================================================================
+2. WRITING AND IMAGES — All rights reserved
+================================================================================
+
+The following are NOT covered by the MIT License. They remain
+(c) 2026 Aslak Hellevik, all rights reserved:
+
+  - everything in `src/content/` — writing posts and project case studies
+  - the prose in `src/pages/*.astro` — the words on the page, not the markup
+    or styling that surrounds them
+  - `public/portrait.jpg` — a photograph of me
+  - `public/favicon.svg`, `public/favicon.ico`, `public/apple-touch-icon.png`
+    and `public/og-default.png` — personal identity marks
+
+You may not republish, redistribute, translate, or use this material to train
+a model without my written permission. Quoting a passage with attribution and
+a link back to aslakhellevik.no is fine, and welcome.
+
+If you want to reuse the design and are unsure where the line falls: strip the
+content, keep the code. Ask me if in doubt — ah@aslakhellevik.no.

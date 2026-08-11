@@ -75,7 +75,7 @@ body {
     color: var(--bg);
 }
 
-/* Editorial article styles — applied only to blog post bodies */
+/* Editorial article styles — applied only to writing post bodies */
 .article {
     font-family: var(--font-serif);
     font-size: 1.175rem;

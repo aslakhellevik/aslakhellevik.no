@@ -7,11 +7,11 @@ tags: [astro, tailwind, cloudflare, design]
 featured: true
 ---
 
-I wanted to make a personal site to have a place to write, list projects, and point people at my consulting services. This project page covers the site and the design decisions behind it, and the repo is public if you are interested. Feel free to borrow or take inspiration from elements of the site. I built the site incrementally with Claude Code. Below are some details on the implementation and the design.
+I wanted to make a personal site to have a place to write, list projects, and point people at my consulting services. This project page covers the site and the design decisions behind it, and the repo is public if you are interested. The code and design are [MIT-licensed](https://github.com/aslakhellevik/aslakhellevik.no/blob/main/LICENSE), so feel free to borrow or take inspiration; the writing and images stay mine. I built the site incrementally with Claude Code. Below are some details on the implementation and the design.
 
 ## Stack
 
-Astro is used for static generation; most pages contain zero JavaScript. Tailwind CSS v4 with a small set of custom properties drives the light and dark theming. Astro Content Collections handles the blog and projects. Pagefind indexes the site for client-side search at build time; Shiki handles code blocks and KaTeX the maths. The site is hosted on Cloudflare as static assets. Fonts come from Bunny Fonts, a GDPR-friendly Google Fonts mirror.
+Astro is used for static generation; most pages contain zero JavaScript. Tailwind CSS v4 with a small set of custom properties drives the light and dark theming. Astro Content Collections handles writing and projects. Pagefind indexes the site for client-side search at build time; Shiki handles code blocks and KaTeX the maths. The site is hosted on Cloudflare as static assets. Fonts come from Bunny Fonts, a GDPR-friendly Google Fonts mirror.
 
 ## Design
 

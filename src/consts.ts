@@ -7,7 +7,7 @@ export const SITE = {
 
 export const NAV_LINKS = [
     { href: "/about", label: "About" },
-    { href: "/blog", label: "Blog" },
+    { href: "/writing", label: "Writing" },
     { href: "/services", label: "Services" },
     { href: "/projects", label: "Projects" },
     { href: "/contact", label: "Contact" },
@@ -30,7 +30,7 @@ export type WorkEntry = {
 
 export const WORK: WorkEntry[] = [
     {
-        company: "Statistisk sentralbyrå (SSB)",
+        company: "Statistics Norway (SSB)",
         role: "Konsulent → Førstekonsulent",
         period: "Jun 2025 – Present",
     },
