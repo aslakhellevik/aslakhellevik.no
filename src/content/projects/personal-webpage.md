@@ -1,7 +1,7 @@
 ---
 title: Personal webpage
 description: This site, and the design decisions behind it. Astro + Tailwind, statically generated, deployed to Cloudflare.
-date: 2026-04-21
+date: 2026-08-11
 repo: https://github.com/aslakhellevik/aslakhellevik.no
 tags: [astro, tailwind, cloudflare, design]
 featured: true
