@@ -7,18 +7,14 @@ tags: [astro, tailwind, cloudflare, design]
 featured: true
 ---
 
-The site you're reading. A small, hand-coded personal webpage that doubles as a place to write, list projects, and point people at consulting work.
+I wanted to make a personal site to have a place to write, list projects, and point people at my consulting services. This project page covers the site and the design decisions behind it, and the repo is public if you are interested. Feel free to borrow or take inspiration from elements of the site. I built the site incrementally with Claude Code. Below are some details on the implementation and the design.
 
 ## Stack
 
-Astro for static generation, with zero JavaScript on most pages. Tailwind CSS v4 with a small set of custom properties driving light and dark theming, TypeScript in strict mode, and Astro Content Collections for the blog and projects. Pagefind indexes the site for client-side search at build time; Shiki handles code blocks and KaTeX the maths. Hosted on Cloudflare as static assets, with fonts from Bunny Fonts — a GDPR-friendly Google Fonts mirror.
+Astro is used for static generation; most pages contain zero JavaScript. Tailwind CSS v4 with a small set of custom properties drives the light and dark theming. Astro Content Collections handles the blog and projects. Pagefind indexes the site for client-side search at build time; Shiki handles code blocks and KaTeX the maths. The site is hosted on Cloudflare as static assets. Fonts come from Bunny Fonts, a GDPR-friendly Google Fonts mirror.
 
 ## Design
 
-Two backdrop motifs render as fixed, page-wide SVG: a **Penrose** rhombus tiling on technical pages (home, projects, services), and a **contour** topographic pattern on the more personal pages (about, writing, contact, 404). Both share a single warm-amber horizon glow at the top and bottom of the viewport, so the palette stays restrained — one accent, no secondary colours.
+Two backdrop motifs render as fixed, page-wide SVG: a **Penrose** rhombus tiling on technical pages (home, projects, services), and a **contour** topographic pattern on the more personal pages (about, writing, contact, 404). Both share a single warm-amber horizon glow at the top and bottom of the viewport.
 
 The header carries a small Penrose star as a brand mark. The 404 page hides a patch of the 2023 Hat aperiodic monotile as an easter egg. The full design specification lives in `DESIGN.md` in the repo.
-
-## Built with Claude Code
-
-Written incrementally over a few months with [Claude Code](https://claude.com/claude-code), following roughly the workflow described on the projects page. I kept creative control of structure, design and tone, reviewing and redirecting as it went.

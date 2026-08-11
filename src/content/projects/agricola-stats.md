@@ -8,23 +8,19 @@ tags: [react, typescript, vite, pwa, board-games]
 featured: false
 ---
 
-A small installable web app for Agricola players who want to look up a card by name or text, see the metadata (cost, edition, type, player count), and check per-card statistics from one of a few playable datasets. Built phone-first; works offline once installed.
+Agricola is a strategy board game about building a farm. I have been playing it semi-regularly for the last few years, and also enjoy participating in tournaments hosted by the community. It has a large set of cards that are essential to play, and being able to view card statistics easily is helpful — especially when trying to improve. So I made one. The end product is a small installable web app which displays card information along with useful statistics. It is built for phone use, but also works well on a laptop.
 
-## What's in it
+## Features
 
-- **Card search** across a snapshot of card metadata from [AgricolaCards](https://www.agricolacards.com/get-cards) — name, text, cost, edition, type.
-- **Dataset switcher** between the metadata snapshot and a play-record dataset from [Agricola Norge](https://agricola.no/), with per-card play rate and ADP/PWR statistics where available.
-- **Hand-strength panel** showing a precomputed Monte Carlo baseline of opening-hand strength for the 4-player Agricola Norge dataset.
-- **Offline-capable PWA** via Workbox; datasets and baselines are cached on first load.
+- **Card search** over a snapshot of card metadata from [AgricolaCards](https://www.agricolacards.com/get-cards): name, text, cost, edition and type.
+- **Dataset switcher.** The metadata snapshot carries full card text; the [Agricola Norge](https://agricola.no/) play records carry per-card play rate and ADP/PWR. You choose which you are looking at.
+- **Hand-strength panel** with a precomputed Monte Carlo baseline for opening hands in the 4-player Agricola Norge data.
+- **Works offline.** Workbox caches the datasets and baselines on first load.
 
 ## Stack
 
-Vite, React and TypeScript, with Zod validating every dataset at runtime, vite-plugin-pwa for the service worker and installable manifest, and Vitest covering the ingest scripts and search logic. Hosted on Cloudflare Workers via Wrangler.
+Vite, React and TypeScript. Zod validates every dataset at runtime. vite-plugin-pwa handles the service worker and the installable manifest, and Vitest covers the ingest scripts and the search logic. Hosted on Cloudflare Workers via Wrangler.
 
 ## Data pipeline
 
-A small set of TypeScript scripts fetch and validate snapshots from the upstream sources, with a manual import path for BoardGameGeek and CSV templates. Generation is reproducible — `DATASET_GENERATED_AT` pins manifest timestamps, so the same inputs produce the same output.
-
-## Why
-
-I play a fair amount of Agricola, and an offline-capable lookup tool with stats was something my playgroup wanted. The project also served as an excuse to practise end-to-end PWA work (Vite + Workbox + dataset validation + cached offline content) on a small, self-contained problem.
+A small set of TypeScript scripts fetch and validate snapshots from the upstream sources, with a manual import path for BoardGameGeek and CSV templates.
