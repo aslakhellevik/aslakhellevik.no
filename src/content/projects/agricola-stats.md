@@ -19,15 +19,12 @@ A small installable web app for Agricola players who want to look up a card by n
 
 ## Stack
 
-- **Vite + React + TypeScript** with **Zod** for runtime dataset validation.
-- **vite-plugin-pwa** for the service worker and installable manifest.
-- **Vitest** for unit tests covering the ingest scripts and search logic.
-- **Cloudflare Workers** for hosting (static assets binding); deploys via Wrangler.
+Vite, React and TypeScript, with Zod validating every dataset at runtime, vite-plugin-pwa for the service worker and installable manifest, and Vitest covering the ingest scripts and search logic. Hosted on Cloudflare Workers via Wrangler.
 
 ## Data pipeline
 
-A small set of TypeScript scripts (`scripts/`) fetch and validate snapshots from the upstream sources, with a manual import path for BoardGameGeek and CSV templates. Each shipped dataset carries an explicit `licenseNote` field declaring whether it has been approved for redistribution. Generation is reproducible — `DATASET_GENERATED_AT` pins manifest timestamps for deterministic output.
+A small set of TypeScript scripts fetch and validate snapshots from the upstream sources, with a manual import path for BoardGameGeek and CSV templates. Generation is reproducible — `DATASET_GENERATED_AT` pins manifest timestamps, so the same inputs produce the same output.
 
 ## Why
 
-I play a fair amount of Agricola, and an offline-capable lookup tool with stats was something my playgroup wanted. The project also served as an excuse to practice end-to-end PWA work (Vite + Workbox + dataset validation + cached offline content) on a small, self-contained problem.
+I play a fair amount of Agricola, and an offline-capable lookup tool with stats was something my playgroup wanted. The project also served as an excuse to practise end-to-end PWA work (Vite + Workbox + dataset validation + cached offline content) on a small, self-contained problem.
