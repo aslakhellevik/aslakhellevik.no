@@ -5,12 +5,14 @@ export const SITE = {
         "Personal site of Aslak Hellevik — statistician in practice, philosopher at heart.",
 };
 
+// Trailing slashes are deliberate: the built pages live at /about/index.html,
+// so linking without one costs a 307 redirect on every navigation.
 export const NAV_LINKS = [
-    { href: "/about", label: "About" },
-    { href: "/writing", label: "Writing" },
-    { href: "/services", label: "Services" },
-    { href: "/projects", label: "Projects" },
-    { href: "/contact", label: "Contact" },
+    { href: "/about/", label: "About" },
+    { href: "/writing/", label: "Writing" },
+    { href: "/services/", label: "Services" },
+    { href: "/projects/", label: "Projects" },
+    { href: "/contact/", label: "Contact" },
 ];
 
 export const SOCIAL_LINKS = {

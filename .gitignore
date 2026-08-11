@@ -26,3 +26,6 @@ pnpm-debug.log*
 # Notes for Claude
 CONTEXT.md
 .claude/
+
+# Infrastructure reference — contains account identifiers and the full DNS zone
+INFRASTRUCTURE.md

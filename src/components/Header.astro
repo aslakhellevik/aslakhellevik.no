@@ -2,9 +2,14 @@
 import { SITE, NAV_LINKS } from "../consts";
 import ThemeToggle from "./ThemeToggle.astro";
 
-const path = Astro.url.pathname.replace(/\/$/, "") || "/";
-const isActive = (href: string) =>
-    href === "/" ? path === "/" : path === href || path.startsWith(href + "/");
+const strip = (p: string) => p.replace(/\/+$/, "") || "/";
+const path = strip(Astro.url.pathname);
+const isActive = (href: string) => {
+    const target = strip(href);
+    return target === "/"
+        ? path === "/"
+        : path === target || path.startsWith(target + "/");
+};
 
 const PHI = (1 + Math.sqrt(5)) / 2;
 const SIDE = 10;

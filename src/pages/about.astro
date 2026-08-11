@@ -128,7 +128,7 @@ const monthYear = new Intl.DateTimeFormat("en-GB", {
                     {projects.map((p) => (
                         <li class="py-4 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
                             <a
-                                href={`/projects/${p.id}`}
+                                href={`/projects/${p.id}/`}
                                 class="font-medium text-fg no-underline hover:text-accent"
                             >
                                 {p.data.title}
