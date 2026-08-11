@@ -14,7 +14,11 @@ const monthYear = new Intl.DateTimeFormat("en-GB", {
 });
 ---
 
-<BaseLayout title="About" wide>
+<BaseLayout
+    title="About"
+    description="Statistician from Oslo. Microsimulation of tax and labour supply, psychometrics, a master's thesis on network effects, and philosophy."
+    wide
+>
     <section class="py-16 grid sm:grid-cols-[200px_1fr] gap-8 sm:gap-10 items-start">
         <img
             src="/portrait.jpg"
@@ -29,23 +33,55 @@ const monthYear = new Intl.DateTimeFormat("en-GB", {
             </h1>
             <div class="mt-6 space-y-4 leading-relaxed">
                 <p>
-                    I'm a statistics master's student at the University of
-                    Oslo, currently working in the Labour Market and Taxation
-                    Research group at Statistics Norway. My day-to-day is
-                    microsimulation modelling — estimating how households
-                    respond to changes in childcare and tax policy.
+                    I am a statistician from Oslo. This year I am working
+                    part-time at Statistics Norway (SSB) and Ebber while
+                    establishing myself as a consultant and starting a blog.
                 </p>
                 <p>
-                    Before that I studied mathematics and informatics in UiO's
-                    Honours Programme, and have worked across applied AI
-                    research (Norsk Regnesentral, Simula's Bio AI project),
-                    private tutoring, and a handful of board roles in Oslo.
+                    At SSB I work in the group for Labour Market and Taxation
+                    Research, where I develop a discrete-choice microsimulation
+                    model of household labour supply. At Ebber I work on the
+                    psychometrics of personality testing, applied to hiring and
+                    professional development. Previously I worked on seasonal
+                    precipitation forecasting at Norsk Regnesentral, and on
+                    regularisation in neural networks at Simula's Bio AI
+                    project.
                 </p>
                 <p>
-                    Outside of statistics I still read and write philosophy —
-                    it was my first subject, and I enter the occasional
-                    olympiad. I also play squash, and currently chair the
-                    university club.
+                    I wrote my master's thesis on the causal effect of social
+                    media use on wellbeing. Using agent-based models, I showed
+                    that standard statistical methods can be severely biased
+                    when network effects are present. My contribution was a
+                    structural model that recovers the true parameters, with a
+                    non-linear “cost of missing out” term capturing the
+                    relevant network dynamics. I derived maximum likelihood and
+                    two-stage least squares estimators for it, and used Monte
+                    Carlo simulations to validate the results.
+                </p>
+                <p>
+                    Besides statistics, I have a love for philosophy. In high
+                    school I participated in the International Philosophy
+                    Olympiad after winning the Norwegian championship. My choice of education
+                    and thesis have both been philosophically motivated, and my
+                    motivation for writing a blog comes from the same restless
+                    drive to question and model the world.
+                </p>
+                <p>
+                    That drive also has less serious applications. I am very fond of
+                    strategic board games, and have played a lot of Agricola
+                    over the last few years. You should give it a try! When I
+                    was younger I played the Pokémon TCG: I won the Norwegian
+                    national championship in the junior class and played in the
+                    World Championship in Vancouver in 2013.
+                </p>
+                <p>
+                    Otherwise I enjoy squash, organising social events, cooking
+                    and reading. And, above all, most of the meaning in
+                    my life comes from social relationships, and the degree to
+                    which this is true seems to be increasing with time.
+                    Alongside the nerdy statistics and philosophy, I also want
+                    to write about how others and I model the relationships we
+                    live inside.
                 </p>
             </div>
         </div>

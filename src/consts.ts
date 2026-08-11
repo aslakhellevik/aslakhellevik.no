@@ -31,8 +31,13 @@ export type WorkEntry = {
 export const WORK: WorkEntry[] = [
     {
         company: "Statistisk sentralbyrå (SSB)",
-        role: "Student Intern",
+        role: "Konsulent → Førstekonsulent",
         period: "Jun 2025 – Present",
+    },
+    {
+        company: "Ebber",
+        role: "R&D Consultant, Statistical Modelling",
+        period: "Jun 2026 – Present",
     },
     {
         company: "Norsk Regnesentral",
@@ -60,12 +65,12 @@ export type EducationEntry = {
 export const EDUCATION: EducationEntry[] = [
     {
         institution: "University of Oslo",
-        degree: "Masters in Statistics",
+        degree: "MSc Stochastic Modelling, Statistics and Risk Analysis",
         period: "2024 – 2026",
     },
     {
         institution: "University of Oslo",
-        degree: "Bachelors in Mathematics with Informatics (Honours)",
+        degree: "BSc Mathematics with Informatics (Honours)",
         period: "2021 – 2024",
     },
     {
