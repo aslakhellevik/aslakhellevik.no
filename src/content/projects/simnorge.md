@@ -2,10 +2,10 @@
 title: SimNorge — practice environment for utdanningsvalg
 description: A browser full of clearly-fake Norwegian public services where lower-secondary pupils practise paying a bill with KID, logging in with an electronic ID, booking a doctor, and applying to upper secondary.
 date: 2026-08-01
-link: https://udv-tool.aslakhellevik2002.workers.dev
+link: https://simnorge.aslakhellevik.no
 tags: [react, typescript, vite, education, norwegian]
-featured: false
-draft: true
+featured: true
+draft: false
 ---
 
 Norwegian pupils leave ungdomsskolen able to discuss the national budget but
@@ -29,7 +29,7 @@ route that reaches the right outcome counts. Every oppdrag ends with an
 «I virkeligheten» note mapping the practice flow onto the real service:
 where it lives, what is identical, and what differs.
 
-## The seven services
+## Seven services and a shared login
 
 - **SimBank** — online banking with real mod-10 KID and mod-11 account-number
   validation, and the KID-or-message rule actual banks enforce.
@@ -63,6 +63,6 @@ one a kommune can approve without a data-protection assessment.
 ## Stack
 
 Vite + React + TypeScript + Tailwind, with Zustand for state and Vitest for
-tests — 313 of them, including a check that drives every oppdrag to completion
+tests — 321 of them, including a check that drives every oppdrag to completion
 through state changes alone, and a guard that fails the build if any bokmål
 word survives in the nynorsk text.
