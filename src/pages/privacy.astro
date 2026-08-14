@@ -57,6 +57,18 @@ import { SOCIAL_LINKS } from "../consts";
                     data for offline use — both stay in your browser and are never
                     sent anywhere.
                 </p>
+                <p class="mt-4 text-muted">
+                    SimNorge at <a href="https://simnorge.aslakhellevik.no"
+                        >simnorge.aslakhellevik.no</a
+                    > keeps the pupil's fictional persona, their progress through the
+                    oppdrag, and the choice of bokmål or nynorsk under a single
+                    <code>simnorge:v1</code> key in <code>localStorage</code>. Once
+                    the page has loaded it makes no network requests at all, so
+                    nothing entered into it is ever transmitted — there is no
+                    account, no login, and no server holding pupil data. The
+                    «Nullstill alt» button inside the app deletes that key, which
+                    is what you want on a shared school machine.
+                </p>
             </div>
 
             <div>
