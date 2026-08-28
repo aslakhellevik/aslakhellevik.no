@@ -3,6 +3,7 @@ title: "Master's thesis: Network Effects of Social Media Use on Well-Being"
 description: My master's thesis from UiO. I use agent-based models to show that standard estimators are biased by network effects, and develop the CoMO structural model as a solution.
 date: 2026-05-15
 link: https://nva.sikt.no/registration/019fdb8244e4-e2b85e96-eac5-46e1-a84f-bf7f265abef4
+linkLabel: Read
 repo: https://github.com/aslakhellevik/master-thesis-code
 tags: [statistics, econometrics, python, research]
 featured: true
