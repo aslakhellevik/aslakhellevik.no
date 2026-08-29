@@ -52,6 +52,8 @@ const monthYear = new Intl.DateTimeFormat("en-GB", {
                     <a
                         href={project.data.link}
                         class="inline-flex items-center gap-1.5"
+                        rel="noopener noreferrer"
+                        target="_blank"
                     >
                         <Icon name="external-link" class="h-3.5 w-3.5" />
                         {project.data.linkLabel}
@@ -61,6 +63,8 @@ const monthYear = new Intl.DateTimeFormat("en-GB", {
                     <a
                         href={project.data.repo}
                         class="inline-flex items-center gap-1.5"
+                        rel="noopener noreferrer"
+                        target="_blank"
                     >
                         <Icon name="code" class="h-3.5 w-3.5" />
                         Code

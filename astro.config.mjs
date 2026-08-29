@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import rehypeExternalLinks from "rehype-external-links";
 import { toString as mdastToString } from "mdast-util-to-string";
 import readingTime from "reading-time";
 
@@ -28,7 +29,13 @@ export default defineConfig({
             wrap: true,
         },
         remarkPlugins: [remarkReadingTime, remarkMath],
-        rehypePlugins: [rehypeKatex],
+        rehypePlugins: [
+            rehypeKatex,
+            [
+                rehypeExternalLinks,
+                { target: "_blank", rel: ["noopener", "noreferrer"] },
+            ],
+        ],
     },
     vite: {
         plugins: [tailwindcss()],
