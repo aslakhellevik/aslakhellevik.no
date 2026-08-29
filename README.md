@@ -77,6 +77,7 @@ title: Project title
 description: One-line description.
 date: 2026-02-23
 link: https://example.com  # optional
+linkLabel: Read  # optional, defaults to "Visit"
 repo: https://github.com/...  # optional
 tags: [tag1]
 featured: false
@@ -90,11 +91,11 @@ render as "February 2026". Drafts (`draft: true`) are excluded from the build.
 
 ## Deployment
 
-Static site, ships from `./dist/`. Pagefind search index is generated as part of `npm run build`. Currently deployed to Cloudflare (see `CONTEXT.md` for infrastructure details).
+Static site, ships from `./dist/`. Pagefind search index is generated as part of `npm run build`. Deploys are manual — `npm run build && npx wrangler deploy`; pushing to GitHub publishes nothing. Full infrastructure details live in `INFRASTRUCTURE.md` (gitignored).
 
 ## Operational context
 
-`CONTEXT.md` (gitignored) holds the project goals, infrastructure state, and pre-launch checklist. Read it before launch-adjacent work.
+Two gitignored documents: `CONTEXT.md` holds the goals, editorial decisions and their history; `INFRASTRUCTURE.md` is the technical specification (DNS, hosting, deploys) and the live to-do list (§12). Read the latter before any infrastructure or deploy work.
 
 ## Licence
 
