@@ -33,7 +33,7 @@ export default defineConfig({
             rehypeKatex,
             [
                 rehypeExternalLinks,
-                { target: "_blank", rel: ["noopener", "noreferrer"] },
+                { target: "_blank", rel: ["noopener"] },
             ],
         ],
     },
