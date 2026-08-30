@@ -24,7 +24,9 @@ const {
 
 const fullTitle = title ? `${title} — ${SITE.name}` : SITE.name;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
-const ogImage = new URL("/og-default.png", Astro.site).toString();
+// Scrapers (LinkedIn especially) cache the OG image by exact URL — bump v
+// whenever og-default.png changes, or shares keep showing the old card.
+const ogImage = new URL("/og-default.png?v=2", Astro.site).toString();
 ---
 
 <!doctype html>
