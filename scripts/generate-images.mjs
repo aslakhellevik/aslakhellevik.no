@@ -73,7 +73,7 @@ const ogSvg = `
             Aslak Hellevik
         </text>
         <text x="374" y="355" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="400" fill="${COLORS.muted}">
-            Statistics, modelling, applied AI, and practical tools.
+            Statistics, modelling, applied AI, and philosophy.
         </text>
         <text x="374" y="402" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="500" letter-spacing="3" fill="${COLORS.accent}">
             ASLAKHELLEVIK.NO
