@@ -29,3 +29,5 @@ CONTEXT.md
 
 # Infrastructure reference — contains account identifiers and the full DNS zone
 INFRASTRUCTURE.md
+# Private drafts (op-eds, posts) — never committed
+drafts/
