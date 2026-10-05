@@ -53,6 +53,14 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
                         {dateFmt.format(post.data.date)}
                     </time>
                 </span>
+                {post.data.updated && (
+                    <span class="inline-flex items-center gap-1.5">
+                        updated
+                        <time datetime={post.data.updated.toISOString()}>
+                            {dateFmt.format(post.data.updated)}
+                        </time>
+                    </span>
+                )}
                 {readingMinutes && (
                     <span class="inline-flex items-center gap-1.5">
                         <Icon name="clock" class="h-3.5 w-3.5" />
