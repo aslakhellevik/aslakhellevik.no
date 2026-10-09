@@ -33,3 +33,10 @@ the [code](https://github.com/aslakhellevik/master-thesis-code) (MIT) that
 produces every figure and table, and the
 [LaTeX source](https://github.com/aslakhellevik/master-thesis-latex)
 (CC-BY-4.0).
+
+In October 2026 I wrote an op-ed in Norwegian for Dagens Næringsliv based on
+the thesis: [«Har de glemt at sosiale medier er
+sosiale?»](https://www.dn.no/innlegg/barn/psykisk-helse/forbud/har-de-glemt-at-sosiale-medier-er-sosiale/2-1-2048081).
+In it I argue that the research field has assumed away the social part of
+social media, and that policy must be risk-based while the evidence is still
+incomplete.
