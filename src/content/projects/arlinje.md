@@ -10,7 +10,7 @@ featured: true
 draft: false
 ---
 
-A friend and I wanted a tool to track our knowledge of history, and the
+My friend Eivind Hjertholm and I wanted a tool to track our knowledge of history, and the
 connections we see in it. We wanted a personal timeline where we could add
 events as we read, heard about, or discussed them, tag them as we liked, and
 connect them as we liked. The timeline would then give a nice visual
