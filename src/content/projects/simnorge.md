@@ -3,6 +3,7 @@ title: "SimNorge: practice tool for utdanningsvalg"
 description: A practice tool for utdanningsvalg, the careers subject in Norwegian lower secondary school. Simulates common Norwegian public services so pupils can practise the practical tasks of adult life.
 date: 2026-08-01
 link: https://simnorge.aslakhellevik.no
+linkLabel: Open the app
 tags: [react, typescript, vite, education, norwegian]
 featured: true
 draft: false

@@ -1,9 +1,10 @@
 ---
-title: "Årlinje: a personal timeline of history"
-description: A browser-based timeline of the history you have actually encountered. Add events as you read or hear about them, tag and connect them, and see where your knowledge is dense and where the gaps are.
+title: "Årlinje: a personal timeline"
+description: A browser-based timeline of the history you have actually encountered. Entries can be connected, and you can see where your knowledge gaps are.
 date: 2026-10-30
 link: https://timeline.aslakhellevik.no
 linkLabel: Open the app
+repo: https://github.com/aslakhellevik/timeline
 tags: [react, typescript, vite, history, local-first]
 featured: true
 draft: false
