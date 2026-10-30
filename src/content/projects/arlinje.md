@@ -10,45 +10,34 @@ featured: true
 draft: false
 ---
 
-A friend and I wanted a tool for keeping track of what we know about
-history, and of the connections we see in it. Most timelines are canonical:
-someone else has decided what belongs on them. We wanted a personal one,
-where we could add events as we read, heard or talked about them, tag them
-as we liked, and connect them as we liked. The timeline would then show us
-the shape of our own knowledge: which parts of history we know best, where
-the gaps are, and which connections we have drawn.
+A friend and I wanted a tool to track our knowledge of history, and the
+connections we see in it. We wanted a personal timeline where we could add
+events as we read, heard about, or discussed them, tag them as we liked, and
+connect them as we liked. The timeline would then give a nice visual
+representation of our personal historical knowledge and the connections we
+have drawn.
 
-Using Claude Code, we built it as a web app:
-[Årlinje](https://timeline.aslakhellevik.no), Norwegian for "year-line".
+Using Claude Code, we built this as a web app:
+[Årlinje](https://timeline.aslakhellevik.no).
 
 ## How it works
 
-Adding an event is one line in the capture box, `battle of lepanto 1571
-#europe #war`, and Enter. Dates can be exact, a year, a range, or fuzzy
-("mid-3rd century BC"). Each event also records when and where you learnt
-it, so the timeline can be replayed against your own life.
+Events are added by writing single lines with event + date, and the date is
+automatically detected. Each event can be tagged, and can contain a note of
+where and when you learnt it. Named eras (such as a world war) can also be
+added, and are visually distinct. Two events can be connected, with the
+option to add a note on why. Zoomed out, the timeline shows the density of
+events added, and shows connections as arcs drawn over it. The view can be
+filtered by tags.
 
-Two events can be connected, and a connection carries its own note: the
-argument for why the two belong together. Named eras, such as the Cold War
-or your own life, are drawn as lanes under the axis.
+There is a [demo](https://timeline.aslakhellevik.no/?demo) with a synthetic
+timeline of 2,000 events to show how it can look after a lot of use.
 
-Zoomed out, dense periods show up as mass, a density plot of what you know.
-Zooming in dissolves the mass into marks and labels, and connections are
-drawn as arcs over it. Filtering by tag moves the weight around, so a thin
-subject stays visibly thin.
-
-There is a demo with a synthetic timeline of 2,000 events, so you can see a
-full one before starting your own.
-
-## Private by design
-
-Everything runs in the browser. Your timeline is stored locally, with
-optional automatic backups to a folder on your own computer and a versioned
-JSON export. No sign-in, no server, no analytics, and free to use. It
-installs as an app and works offline.
+The app runs in the browser for free, with no sign-in. Data is stored
+locally, with optional automatic backups to a folder on your own computer.
 
 ## Stack
 
 Vite + React + TypeScript + Tailwind, with Zustand for state, IndexedDB for
-storage, a hand-written canvas renderer for the timeline, and Vitest for
-tests. Deployed as a static bundle on a Cloudflare Worker.
+storage, a canvas renderer for the timeline, and Vitest for tests. Deployed
+as a static bundle on a Cloudflare Worker.
