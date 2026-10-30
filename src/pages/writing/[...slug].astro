@@ -15,6 +15,7 @@ type Props = { post: CollectionEntry<"writing"> };
 
 const { post } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(post);
+const isNote = post.data.kind === "note";
 const readingMinutes: number | undefined = remarkPluginFrontmatter.readingTime;
 
 const dateFmt = new Intl.DateTimeFormat("en-GB", {
@@ -41,12 +42,21 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
 
         <header class="mb-10 pb-8 border-b border-border-subtle">
             <h1
-                class="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.1]"
+                class:list={[
+                    "font-semibold tracking-tight leading-[1.1]",
+                    isNote ? "text-3xl sm:text-4xl" : "text-4xl sm:text-5xl",
+                ]}
                 style="font-family: var(--font-serif);"
             >
                 {post.data.title}
             </h1>
             <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted">
+                {isNote && (
+                    <span class="inline-flex items-center gap-1.5 uppercase tracking-widest text-xs">
+                        <Icon name="pen-line" class="h-3.5 w-3.5" />
+                        Note
+                    </span>
+                )}
                 <span class="inline-flex items-center gap-1.5">
                     <Icon name="calendar" class="h-3.5 w-3.5" />
                     <time datetime={post.data.date.toISOString()}>

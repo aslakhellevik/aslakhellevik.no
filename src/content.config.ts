@@ -9,6 +9,8 @@ const writing = defineCollection({
         updated: z.coerce.date().optional(),
         description: z.string(),
         tags: z.array(z.string()).optional(),
+        /** essay = worked-out piece (default); note = short thought or open question. */
+        kind: z.enum(["essay", "note"]).optional().default("essay"),
         draft: z.boolean().optional().default(false),
     }),
 });

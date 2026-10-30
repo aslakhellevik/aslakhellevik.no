@@ -123,10 +123,15 @@ const highlights = [
                                 class="inline-flex min-w-0 items-center gap-2 text-fg no-underline hover:text-accent"
                             >
                                 <Icon
-                                    name="file-text"
+                                    name={post.data.kind === "note" ? "pen-line" : "file-text"}
                                     class="h-4 w-4 shrink-0 text-accent"
                                 />
                                 {post.data.title}
+                                {post.data.kind === "note" && (
+                                    <span class="text-xs uppercase tracking-widest text-muted">
+                                        note
+                                    </span>
+                                )}
                             </a>
                             <span
                                 class="inline-flex shrink-0 items-center gap-1.5 text-sm text-muted tabular-nums"

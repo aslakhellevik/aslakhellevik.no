@@ -12,5 +12,6 @@ export type IconName =
     | "graduation-cap"
     | "linkedin"
     | "mail"
+    | "pen-line"
     | "rss"
     | "tag";
